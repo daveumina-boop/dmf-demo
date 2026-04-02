@@ -1,96 +1,115 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>DMF Feed</title>
+
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   background: black;
-  font-family: Arial;
-  color: white;
   overflow: hidden;
+  font-family: Arial;
 }
 
-.container {
+/* FEED */
+.feed {
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
 }
 
-.video-slide {
+.slide {
   position: relative;
   height: 100vh;
   scroll-snap-align: start;
 }
 
+/* VIDEO */
 video {
   width: 100%;
   height: 100%;
   object-fit: cover;
 }
 
-/* Overlay Info */
-.info {
+/* FADE */
+.fade {
   position: absolute;
-  bottom: 100px;
-  left: 15px;
+  bottom: 0;
+  height: 45%;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
 }
 
-.info h3 {
+/* TEXT */
+.info {
+  position: absolute;
+  bottom: 140px;
+  left: 16px;
+  color: white;
+}
+
+.info h2 {
   margin: 0;
+  font-size: 22px;
 }
 
 .info p {
-  margin: 5px 0;
+  margin-top: 5px;
   font-size: 14px;
 }
 
-/* Right Buttons */
+/* ACTION ICONS */
 .actions {
   position: absolute;
-  right: 10px;
-  bottom: 120px;
+  right: 12px;
+  bottom: 180px;
+  color: white;
   text-align: center;
 }
 
 .actions div {
-  margin: 15px 0;
-  font-size: 22px;
+  margin: 18px 0;
+  font-size: 30px;
 }
 
-/* Order Button */
+/* ORDER BUTTON */
 .order-btn {
   position: absolute;
-  bottom: 30px;
-  left: 20px;
-  right: 20px;
-  background: red;
-  padding: 15px;
+  left: 16px;
+  right: 16px;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  background: linear-gradient(90deg, #ff3b30, #d10000);
+  color: white;
+  padding: 18px;
   text-align: center;
   font-weight: bold;
-  border-radius: 10px;
+  border-radius: 14px;
+  font-size: 18px;
+  z-index: 20;
 }
 
-/* Top Bar */
-.topbar {
-  position: fixed;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  padding: 10px;
-  font-weight: bold;
-  background: rgba(0,0,0,0.4);
-}
-
-/* Bottom Nav */
-.bottombar {
+/* NAV */
+.nav {
   position: fixed;
   bottom: 0;
   width: 100%;
+  background: #5a0a00;
   display: flex;
   justify-content: space-around;
-  background: rgba(0,0,0,0.6);
-  padding: 10px 0;
+  padding: 12px 0;
+  color: white;
+}
+
+/* SOUND */
+.sound {
+  position: absolute;
+  top: 70px;
+  left: 16px;
+  color: white;
   font-size: 12px;
 }
 </style>
@@ -98,61 +117,65 @@ video {
 
 <body>
 
-<div class="topbar">
-  DMF | For You
-</div>
-
-<div class="container">
+<div class="feed">
 
   <!-- BBQ -->
-  <div class="video-slide">
-    <video src="bbq.mp4" autoplay muted loop></video>
+  <div class="slide">
+    <video src="bbq.mp4?v=2" autoplay muted loop playsinline preload="auto"
+      onclick="this.muted=false; this.play();"></video>
 
-    <div class="info">
-      <h3>Real Smoqed BBQ</h3>
-      <p>🔥 Smoked Ribs • Brisket • BBQ</p>
-    </div>
+    <div class="fade"></div>
+    <div class="sound">🔊 tap for sound</div>
 
     <div class="actions">
-      ❤️<br>
-      💬<br>
-      🔗<br>
-      🔖
+      <div>❤️</div>
+      <div>💬</div>
+      <div>🔗</div>
+      <div>🔖</div>
     </div>
 
-    <div class="order-btn" onclick="window.location.href='https://realsmoqedbbq.com/menu'">
-      ORDER NOW
+    <div class="info">
+      <h2>Real Smoq'ed BBQ</h2>
+      <p>Ribs • Brisket • BBQ</p>
     </div>
+
+    <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
+      ORDER NOW
+    </a>
   </div>
 
   <!-- PIZZAZZ -->
-  <div class="video-slide">
-    <video src="pizzazz.mp4" autoplay muted loop></video>
+  <div class="slide">
+    <video src="pizzazz.mp4?v=2" autoplay muted loop playsinline preload="auto"
+      onclick="this.muted=false; this.play();"></video>
 
-    <div class="info">
-      <h3>Pizzazz on the Circle</h3>
-      <p>🍕 Pizza • Pasta • Italian</p>
-    </div>
+    <div class="fade"></div>
+    <div class="sound">🔊 tap for sound</div>
 
     <div class="actions">
-      ❤️<br>
-      💬<br>
-      🔗<br>
-      🔖
+      <div>❤️</div>
+      <div>💬</div>
+      <div>🔗</div>
+      <div>🔖</div>
     </div>
 
-    <div class="order-btn" onclick="window.location.href='https://pizzazzonthecircle.com'">
-      ORDER NOW
+    <div class="info">
+      <h2>Pizzazz on the Circle</h2>
+      <p>Pizza • Pasta • Italian</p>
     </div>
+
+    <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
+      ORDER NOW
+    </a>
   </div>
 
 </div>
 
-<div class="bottombar">
-  <div>🏠 Home</div>
-  <div>⭐ Favorites</div>
-  <div>📦 Orders</div>
-  <div>👤 Profile</div>
+<div class="nav">
+  <div>🏠</div>
+  <div>⭐</div>
+  <div>📦</div>
+  <div>👤</div>
 </div>
 
 </body>
