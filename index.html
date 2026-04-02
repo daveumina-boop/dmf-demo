@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <style>
@@ -20,6 +21,7 @@ body {
   scroll-snap-type: y mandatory;
 }
 
+/* SLIDE */
 .slide {
   position: relative;
   height: 100vh;
@@ -60,21 +62,22 @@ video {
   font-size: 16px;
 }
 
-/* 🔥 BIG ICONS (FIXED) */
+/* ACTION ICONS */
 .actions {
   position: absolute;
-  right: 16px;
+  right: 18px;
   bottom: 200px;
-  color: white;
-  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 }
 
 .actions div {
-  margin: 24px 0;
-  font-size: 34px; /* BIG */
+  font-size: 34px;
+  filter: drop-shadow(0 0 6px rgba(0,0,0,0.6));
 }
 
-/* 🔥 ORDER BUTTON */
+/* ORDER BUTTON */
 .order-btn {
   position: absolute;
   left: 16px;
@@ -88,18 +91,6 @@ video {
   border-radius: 16px;
   font-size: 20px;
   z-index: 20;
-}
-
-/* 🔥 SOUND LABEL (FIXED SIZE + POSITION) */
-.sound {
-  position: absolute;
-  top: 80px;
-  left: 16px;
-  color: white;
-  font-size: 16px;
-  background: rgba(0,0,0,0.5);
-  padding: 8px 12px;
-  border-radius: 20px;
 }
 
 /* NAV */
@@ -119,14 +110,13 @@ video {
 
 <body>
 
-<div class="feed">
+<div class="feed" id="feed">
 
   <!-- BBQ -->
   <div class="slide">
-    <video id="video1" src="bbq.mp4?v=3" autoplay muted loop playsinline></video>
+    <video src="bbq.mp4?v=5" muted loop playsinline preload="auto"></video>
 
     <div class="fade"></div>
-    <div class="sound">🔊 Tap for sound</div>
 
     <div class="actions">
       <div>❤️</div>
@@ -147,10 +137,9 @@ video {
 
   <!-- PIZZAZZ -->
   <div class="slide">
-    <video id="video2" src="pizzazz.mp4?v=3" autoplay muted loop playsinline></video>
+    <video src="pizzazz.mp4?v=5" muted loop playsinline preload="auto"></video>
 
     <div class="fade"></div>
-    <div class="sound">🔊 Tap for sound</div>
 
     <div class="actions">
       <div>❤️</div>
@@ -178,18 +167,54 @@ video {
   <div>👤</div>
 </div>
 
-<!-- 🔥 AUDIO FIX SCRIPT -->
 <script>
 const videos = document.querySelectorAll("video");
+const feed = document.getElementById("feed");
 
+/* PLAY ACTIVE VIDEO */
+function playVisibleVideo() {
+  let active = null;
+  let closest = Infinity;
+
+  videos.forEach(video => {
+    const rect = video.getBoundingClientRect();
+    const offset = Math.abs(rect.top);
+
+    if (offset < closest) {
+      closest = offset;
+      active = video;
+    }
+  });
+
+  videos.forEach(v => {
+    if (v !== active) {
+      v.pause();
+      v.muted = true;
+    }
+  });
+
+  if (active) {
+    active.play().catch(() => {});
+  }
+}
+
+/* INITIAL PLAY */
+window.addEventListener("load", () => {
+  videos.forEach(v => {
+    v.muted = true;
+    v.play().catch(() => {});
+  });
+});
+
+/* SCROLL HANDLING */
+feed.addEventListener("scroll", () => {
+  playVisibleVideo();
+});
+
+/* TAP FOR SOUND */
 videos.forEach(video => {
   video.addEventListener("click", () => {
-    videos.forEach(v => {
-      v.muted = true;
-      v.pause();
-      v.currentTime = v.currentTime;
-    });
-
+    videos.forEach(v => v.muted = true);
     video.muted = false;
     video.play();
   });
