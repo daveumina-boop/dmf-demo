@@ -1,18 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DMF Feed</title>
 
 <style>
-* { box-sizing: border-box; }
-
-body {
+html, body {
   margin: 0;
+  padding: 0;
   background: black;
   overflow: hidden;
-  font-family: Arial;
+  font-family: Arial, sans-serif;
 }
 
 /* FEED */
@@ -20,12 +17,15 @@ body {
   height: 100vh;
   overflow-y: scroll;
   scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
 }
 
+/* SLIDES */
 .slide {
   position: relative;
   height: 100vh;
   scroll-snap-align: start;
+  background: black;
 }
 
 /* VIDEO */
@@ -33,47 +33,33 @@ video {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  background: black;
 }
 
 /* FADE */
 .fade {
   position: absolute;
   bottom: 0;
-  height: 45%;
+  height: 40%;
   width: 100%;
   background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  pointer-events: none;
 }
 
 /* TEXT */
 .info {
   position: absolute;
-  bottom: 140px;
+  bottom: 120px;
   left: 16px;
+  right: 16px;
   color: white;
+  z-index: 5;
 }
 
 .info h2 {
   margin: 0;
-  font-size: 22px;
-}
-
-.info p {
-  margin-top: 5px;
-  font-size: 14px;
-}
-
-/* ACTION ICONS */
-.actions {
-  position: absolute;
-  right: 12px;
-  bottom: 180px;
-  color: white;
-  text-align: center;
-}
-
-.actions div {
-  margin: 18px 0;
-  font-size: 30px;
+  font-size: 24px;
 }
 
 /* ORDER BUTTON */
@@ -81,7 +67,7 @@ video {
   position: absolute;
   left: 16px;
   right: 16px;
-  bottom: calc(90px + env(safe-area-inset-bottom));
+  bottom: calc(20px + env(safe-area-inset-bottom));
   background: linear-gradient(90deg, #ff3b30, #d10000);
   color: white;
   padding: 18px;
@@ -89,54 +75,65 @@ video {
   font-weight: bold;
   border-radius: 14px;
   font-size: 18px;
-  z-index: 20;
+  text-decoration: none;
+  z-index: 10;
 }
 
-/* NAV */
-.nav {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
-  background: #5a0a00;
-  display: flex;
-  justify-content: space-around;
-  padding: 12px 0;
-  color: white;
-}
-
-/* SOUND */
-.sound {
+/* BIG TAP FOR SOUND */
+.tap-sound {
   position: absolute;
-  top: 70px;
-  left: 16px;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0,0,0,0.7);
   color: white;
-  font-size: 12px;
+  padding: 20px 28px;
+  border-radius: 30px;
+  font-size: 20px;
+  font-weight: bold;
+  z-index: 10;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.15);
+}
+
+/* SCROLL UP PROMPT */
+.scroll-up {
+  position: absolute;
+  bottom: 90px;
+  width: 100%;
+  text-align: center;
+  color: white;
+  font-size: 18px;
+  opacity: 0.9;
+  z-index: 10;
+  pointer-events: none;
 }
 </style>
 </head>
 
 <body>
 
-<div class="feed">
+<div class="feed" id="feed">
 
   <!-- BBQ -->
   <div class="slide">
-    <video src="bbq.mp4?v=2" autoplay muted loop playsinline preload="auto"
-      onclick="this.muted=false; this.play();"></video>
+    <video
+      id="video1"
+      src="bbq.mp4?v=21"
+      autoplay
+      muted
+      playsinline
+      loop
+      preload="auto"
+    ></video>
+
+    <div id="tapSound" class="tap-sound">🔊 TAP FOR SOUND</div>
+    <div class="scroll-up">⬆️ Scroll Up</div>
 
     <div class="fade"></div>
-    <div class="sound">🔊 tap for sound</div>
-
-    <div class="actions">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>🔗</div>
-      <div>🔖</div>
-    </div>
 
     <div class="info">
       <h2>Real Smoq'ed BBQ</h2>
-      <p>Ribs • Brisket • BBQ</p>
     </div>
 
     <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
@@ -146,22 +143,19 @@ video {
 
   <!-- PIZZAZZ -->
   <div class="slide">
-    <video src="pizzazz.mp4?v=2" autoplay muted loop playsinline preload="auto"
-      onclick="this.muted=false; this.play();"></video>
+    <video
+      id="video2"
+      src="pizzazz.mp4?v=21"
+      muted
+      playsinline
+      loop
+      preload="auto"
+    ></video>
 
     <div class="fade"></div>
-    <div class="sound">🔊 tap for sound</div>
-
-    <div class="actions">
-      <div>❤️</div>
-      <div>💬</div>
-      <div>🔗</div>
-      <div>🔖</div>
-    </div>
 
     <div class="info">
       <h2>Pizzazz on the Circle</h2>
-      <p>Pizza • Pasta • Italian</p>
     </div>
 
     <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
@@ -171,12 +165,49 @@ video {
 
 </div>
 
-<div class="nav">
-  <div>🏠</div>
-  <div>⭐</div>
-  <div>📦</div>
-  <div>👤</div>
-</div>
+<script>
+const feed = document.getElementById("feed");
+const videos = [
+  document.getElementById("video1"),
+  document.getElementById("video2")
+];
+const tapSoundBtn = document.getElementById("tapSound");
+
+let soundEnabled = false;
+let activeIndex = 0;
+
+function updateActiveVideo(index) {
+  activeIndex = index;
+
+  videos.forEach((video, i) => {
+    if (i === index) {
+      video.muted = !soundEnabled;
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+      video.muted = true;
+      video.currentTime = 0;
+    }
+  });
+}
+
+function detectActiveSlide() {
+  const index = Math.round(feed.scrollTop / window.innerHeight);
+  updateActiveVideo(index);
+}
+
+tapSoundBtn.addEventListener("click", () => {
+  soundEnabled = true;
+  tapSoundBtn.style.display = "none";
+  updateActiveVideo(activeIndex);
+});
+
+feed.addEventListener("scroll", detectActiveSlide);
+
+window.addEventListener("load", () => {
+  updateActiveVideo(0);
+});
+</script>
 
 </body>
 </html>
