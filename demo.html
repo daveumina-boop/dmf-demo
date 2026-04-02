@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DMF Demo V2</title>
+<title>DMF Demo V3</title>
 <style>
 html, body {
   margin: 0;
@@ -50,7 +50,7 @@ video {
   bottom: 0;
   height: 52%;
   width: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.96), rgba(0,0,0,0.55), transparent);
+  background: linear-gradient(to top, rgba(0,0,0,0.96), rgba(0,0,0,0.56), transparent);
   pointer-events: none;
 }
 
@@ -72,7 +72,7 @@ video {
   gap: 8px;
   padding: 10px 14px;
   border-radius: 999px;
-  background: rgba(0,0,0,0.38);
+  background: rgba(0,0,0,0.4);
   border: 1px solid rgba(255,255,255,0.12);
   backdrop-filter: blur(8px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.24);
@@ -292,7 +292,6 @@ video {
   transform: translateX(-50%) translateY(0);
 }
 
-.saved-screen,
 .restaurant-screen {
   position: fixed;
   inset: 0;
@@ -307,15 +306,13 @@ video {
   transition: transform 0.34s ease, opacity 0.34s ease;
 }
 
-.saved-screen.open,
 .restaurant-screen.open {
   transform: translateX(0);
   opacity: 1;
   pointer-events: auto;
 }
 
-.restaurant-inner,
-.saved-inner {
+.restaurant-inner {
   position: relative;
   height: 100%;
   overflow-y: auto;
@@ -333,8 +330,7 @@ video {
   opacity: 1;
 }
 
-.restaurant-topbar,
-.saved-topbar {
+.restaurant-topbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -351,17 +347,6 @@ video {
   font-weight: 800;
   cursor: pointer;
   backdrop-filter: blur(8px);
-}
-
-.saved-count-pill {
-  padding: 10px 12px;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.06);
-  border: 1px solid rgba(255,255,255,0.1);
-  font-size: 12px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
 
 .screen-logo-wrap {
@@ -434,68 +419,104 @@ video {
   font-weight: 800;
   letter-spacing: 0.12em;
   opacity: 0.72;
-  margin: 18px 2px 10px 2px;
+  margin: 18px 2px 12px 2px;
   text-transform: uppercase;
 }
 
-.image-grid {
+.video-grid {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
   margin-bottom: 16px;
 }
 
-.image-card {
+.video-tile {
   position: relative;
-  aspect-ratio: 1 / 1;
+  aspect-ratio: 9 / 16;
+  border-radius: 18px;
   overflow: hidden;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.03);
-  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
+  border: 1px solid rgba(255,255,255,0.07);
+  background: #111;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.26);
 }
 
-.image-card img {
+.video-tile img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center center;
   display: block;
+  transform: scale(1.03);
 }
 
-.image-card::after {
+.video-tile::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.68), rgba(0,0,0,0.14), transparent 55%);
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.82), rgba(0,0,0,0.18) 46%, rgba(0,0,0,0.08) 72%, transparent 100%);
 }
 
-.image-card-label {
+.play-badge {
   position: absolute;
-  left: 12px;
-  right: 12px;
-  bottom: 12px;
+  inset: 0;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
 }
 
-.image-card-badge {
-  display: inline-block;
-  margin-bottom: 6px;
-  padding: 5px 9px;
+.play-circle {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.44);
+  border: 1px solid rgba(255,255,255,0.22);
+  backdrop-filter: blur(6px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.28);
+}
+
+.play-triangle {
+  margin-left: 2px;
+  width: 0;
+  height: 0;
+  border-left: 11px solid white;
+  border-top: 7px solid transparent;
+  border-bottom: 7px solid transparent;
+}
+
+.video-duration {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  padding: 4px 7px;
   border-radius: 999px;
-  background: rgba(255,75,62,0.2);
-  border: 1px solid rgba(255,75,62,0.3);
+  background: rgba(0,0,0,0.58);
+  border: 1px solid rgba(255,255,255,0.14);
   font-size: 10px;
   font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ffd6d2;
+  letter-spacing: 0.04em;
 }
 
-.image-card-title {
+.video-caption {
+  position: absolute;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  z-index: 3;
+}
+
+.video-caption p {
   margin: 0;
-  font-size: 17px;
+  font-size: 11px;
+  line-height: 1.2;
   font-weight: 800;
-  line-height: 1.15;
+  text-shadow: 0 2px 10px rgba(0,0,0,0.6);
 }
 
 .about-card,
@@ -517,96 +538,8 @@ video {
   opacity: 0.94;
 }
 
-.saved-title {
-  margin: 8px 0 8px 0;
-  font-size: 30px;
-  line-height: 1.05;
-  font-weight: 800;
-}
-
-.saved-subtitle {
-  margin: 0 0 18px 0;
-  font-size: 15px;
-  opacity: 0.88;
-  line-height: 1.5;
-  max-width: 420px;
-}
-
-.saved-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-}
-
-.saved-card {
-  width: 100%;
-  text-align: left;
-  color: #fff;
-  border: 1px solid rgba(255,255,255,0.09);
-  background:
-    radial-gradient(circle at top right, rgba(255,75,62,0.16), transparent 35%),
-    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border-radius: 22px;
-  padding: 14px;
-  display: flex;
-  gap: 14px;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
-}
-
-.saved-card-logo {
-  width: 72px;
-  height: 72px;
-  border-radius: 18px;
-  object-fit: cover;
-  border: 2px solid rgba(255,255,255,0.9);
-  flex-shrink: 0;
-}
-
-.saved-card-title {
-  font-size: 20px;
-  font-weight: 800;
-  margin: 0 0 5px 0;
-}
-
-.saved-card-sub {
-  font-size: 14px;
-  opacity: 0.9;
-  margin: 0 0 8px 0;
-  line-height: 1.35;
-}
-
-.saved-card-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-}
-
-.saved-empty {
-  margin-top: 14px;
-  padding: 20px 18px;
-  border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.08);
-  background: rgba(255,255,255,0.04);
-}
-
-.saved-empty h3 {
-  margin: 0 0 8px 0;
-  font-size: 21px;
-  font-weight: 800;
-}
-
-.saved-empty p {
-  margin: 0;
-  font-size: 15px;
-  opacity: 0.88;
-  line-height: 1.5;
-}
-
 @media (min-width: 700px) {
-  .restaurant-inner,
-  .saved-inner {
+  .restaurant-inner {
     max-width: 560px;
     margin: 0 auto;
   }
@@ -630,7 +563,7 @@ video {
 
     <video
       id="video1"
-      src="bbq.mp4?v=53"
+      src="bbq.mp4?v=54"
       autoplay
       muted
       playsinline
@@ -647,7 +580,7 @@ video {
         type="button"
         data-id="bbq"
         data-name="Real Smoq'ed BBQ"
-        data-logo="bbq-logo.png?v=53"
+        data-logo="bbq-logo.png?v=54"
         data-description="Slow-smoked BBQ favorites with ribs, brisket, and bold comfort-food flavor."
         data-order="https://realsmoqedbbq.com/menu"
         data-rating="⭐ 4.8 Rating"
@@ -659,16 +592,25 @@ video {
         data-feedmeta2="200+ Orders"
         data-feedmeta3="🔥 Most Ordered"
         data-img1="bbq-1.jpg?v=1"
-        data-img1title="Burnt End Brisket Plate"
-        data-img1badge="🔥 Most Ordered"
         data-img2="bbq-2.jpg?v=1"
-        data-img2title="Half Rack Ribs"
-        data-img2badge="⭐ Fan Favorite"
         data-img3="bbq-3.jpg?v=1"
-        data-img3title="Loaded Fries & Sides"
-        data-img3badge="Trending"
+        data-img4="bbq-1.jpg?v=1"
+        data-img5="bbq-2.jpg?v=1"
+        data-img6="bbq-3.jpg?v=1"
+        data-cap1="Brisket off the smoker"
+        data-cap2="Ribs getting sauced"
+        data-cap3="Loaded sides dropping"
+        data-cap4="Smokehouse prep"
+        data-cap5="Pitmaster close-up"
+        data-cap6="BBQ finish shot"
+        data-dur1="0:12"
+        data-dur2="0:09"
+        data-dur3="0:08"
+        data-dur4="0:11"
+        data-dur5="0:07"
+        data-dur6="0:10"
       >
-        <img src="bbq-logo.png?v=53" class="logo-btn" alt="Real Smoq'ed BBQ">
+        <img src="bbq-logo.png?v=54" class="logo-btn" alt="Real Smoq'ed BBQ">
       </button>
 
       <div class="action-wrap">
@@ -723,7 +665,7 @@ video {
 
     <video
       id="video2"
-      src="pizzazz.mp4?v=53"
+      src="pizzazz.mp4?v=54"
       muted
       playsinline
       webkit-playsinline
@@ -737,7 +679,7 @@ video {
         type="button"
         data-id="pizzazz"
         data-name="Pizzazz on the Circle"
-        data-logo="pizzazz-logo.png?v=53"
+        data-logo="pizzazz-logo.png?v=54"
         data-description="Classic pizza, pasta, and Italian favorites served with neighborhood energy."
         data-order="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
         data-rating="⭐ 4.7 Rating"
@@ -749,16 +691,25 @@ video {
         data-feedmeta2="150+ Orders"
         data-feedmeta3="⭐ Fan Favorite"
         data-img1="pizzazz-1.jpg?v=1"
-        data-img1title="House Pepperoni Pizza"
-        data-img1badge="⭐ Fan Favorite"
         data-img2="pizzazz-2.jpg?v=1"
-        data-img2title="Grandma's Vodka Rigatoni"
-        data-img2badge="Trending"
         data-img3="pizzazz-3.jpg?v=1"
-        data-img3title="Garlic Parm Wings"
-        data-img3badge="🔥 Popular"
+        data-img4="pizzazz-1.jpg?v=1"
+        data-img5="pizzazz-2.jpg?v=1"
+        data-img6="pizzazz-3.jpg?v=1"
+        data-cap1="Fresh pizza slice pull"
+        data-cap2="Pasta coming together"
+        data-cap3="Wings out of the kitchen"
+        data-cap4="Dough toss moment"
+        data-cap5="Sauce and cheese close-up"
+        data-cap6="Late night kitchen energy"
+        data-dur1="0:10"
+        data-dur2="0:08"
+        data-dur3="0:09"
+        data-dur4="0:07"
+        data-dur5="0:11"
+        data-dur6="0:08"
       >
-        <img src="pizzazz-logo.png?v=53" class="logo-btn" alt="Pizzazz on the Circle">
+        <img src="pizzazz-logo.png?v=54" class="logo-btn" alt="Pizzazz on the Circle">
       </button>
 
       <div class="action-wrap">
@@ -824,30 +775,43 @@ video {
 
       <a id="screenOrderBtn" href="#" target="_blank" class="screen-order-btn">ORDER NOW</a>
 
-      <div class="section-title">Featured Menu</div>
-      <div class="image-grid">
-        <div class="image-card">
-          <img id="gridImg1" src="" alt="">
-          <div class="image-card-label">
-            <div id="gridBadge1" class="image-card-badge"></div>
-            <h3 id="gridTitle1" class="image-card-title"></h3>
-          </div>
+      <div class="section-title">Restaurant Feed</div>
+      <div class="video-grid">
+        <div class="video-tile">
+          <img id="tileImg1" src="" alt="">
+          <div class="video-duration" id="tileDur1"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap1"></p></div>
         </div>
-
-        <div class="image-card">
-          <img id="gridImg2" src="" alt="">
-          <div class="image-card-label">
-            <div id="gridBadge2" class="image-card-badge"></div>
-            <h3 id="gridTitle2" class="image-card-title"></h3>
-          </div>
+        <div class="video-tile">
+          <img id="tileImg2" src="" alt="">
+          <div class="video-duration" id="tileDur2"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap2"></p></div>
         </div>
-
-        <div class="image-card">
-          <img id="gridImg3" src="" alt="">
-          <div class="image-card-label">
-            <div id="gridBadge3" class="image-card-badge"></div>
-            <h3 id="gridTitle3" class="image-card-title"></h3>
-          </div>
+        <div class="video-tile">
+          <img id="tileImg3" src="" alt="">
+          <div class="video-duration" id="tileDur3"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap3"></p></div>
+        </div>
+        <div class="video-tile">
+          <img id="tileImg4" src="" alt="">
+          <div class="video-duration" id="tileDur4"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap4"></p></div>
+        </div>
+        <div class="video-tile">
+          <img id="tileImg5" src="" alt="">
+          <div class="video-duration" id="tileDur5"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap5"></p></div>
+        </div>
+        <div class="video-tile">
+          <img id="tileImg6" src="" alt="">
+          <div class="video-duration" id="tileDur6"></div>
+          <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
+          <div class="video-caption"><p id="tileCap6"></p></div>
         </div>
       </div>
 
@@ -864,25 +828,6 @@ video {
   </div>
 </div>
 
-<div id="savedScreen" class="saved-screen" aria-hidden="true">
-  <div class="saved-inner">
-    <div class="saved-topbar">
-      <button id="closeSavedScreen" class="back-btn" type="button">← Back</button>
-      <div id="savedCountPill" class="saved-count-pill">0 Saved</div>
-    </div>
-
-    <h1 class="saved-title">Saved Restaurants</h1>
-    <p class="saved-subtitle">Save restaurants you want to come back to and open their pages anytime.</p>
-
-    <div id="savedList" class="saved-list"></div>
-
-    <div id="savedEmpty" class="saved-empty">
-      <h3>No saved restaurants yet</h3>
-      <p>Tap the heart on any restaurant in the feed to save it here.</p>
-    </div>
-  </div>
-</div>
-
 <div id="placeholderToast" class="placeholder-toast">Coming soon</div>
 
 <script>
@@ -893,42 +838,48 @@ const videos = [
 ];
 const tapSoundBtn = document.getElementById("tapSound");
 const restaurantScreen = document.getElementById("restaurantScreen");
-const savedScreen = document.getElementById("savedScreen");
 const closeRestaurantScreen = document.getElementById("closeRestaurantScreen");
-const closeSavedScreen = document.getElementById("closeSavedScreen");
 const screenLogo = document.getElementById("screenLogo");
 const screenName = document.getElementById("screenName");
 const screenDesc = document.getElementById("screenDesc");
 const screenOrderBtn = document.getElementById("screenOrderBtn");
 const profileRating = document.getElementById("profileRating");
 const profileOrders = document.getElementById("profileOrders");
-const gridImg1 = document.getElementById("gridImg1");
-const gridImg2 = document.getElementById("gridImg2");
-const gridImg3 = document.getElementById("gridImg3");
-const gridTitle1 = document.getElementById("gridTitle1");
-const gridTitle2 = document.getElementById("gridTitle2");
-const gridTitle3 = document.getElementById("gridTitle3");
-const gridBadge1 = document.getElementById("gridBadge1");
-const gridBadge2 = document.getElementById("gridBadge2");
-const gridBadge3 = document.getElementById("gridBadge3");
 const aboutText = document.getElementById("aboutText");
 const valueText = document.getElementById("valueText");
 const placeholderToast = document.getElementById("placeholderToast");
-const savedList = document.getElementById("savedList");
-const savedEmpty = document.getElementById("savedEmpty");
-const savedCountPill = document.getElementById("savedCountPill");
+
+const tileImgs = [
+  document.getElementById("tileImg1"),
+  document.getElementById("tileImg2"),
+  document.getElementById("tileImg3"),
+  document.getElementById("tileImg4"),
+  document.getElementById("tileImg5"),
+  document.getElementById("tileImg6")
+];
+
+const tileCaps = [
+  document.getElementById("tileCap1"),
+  document.getElementById("tileCap2"),
+  document.getElementById("tileCap3"),
+  document.getElementById("tileCap4"),
+  document.getElementById("tileCap5"),
+  document.getElementById("tileCap6")
+];
+
+const tileDurs = [
+  document.getElementById("tileDur1"),
+  document.getElementById("tileDur2"),
+  document.getElementById("tileDur3"),
+  document.getElementById("tileDur4"),
+  document.getElementById("tileDur5"),
+  document.getElementById("tileDur6")
+];
 
 let soundEnabled = false;
 let activeIndex = 0;
 let overlayOpen = false;
 let toastTimer = null;
-
-const restaurantDataMap = {};
-document.querySelectorAll(".logo-action").forEach((button) => {
-  restaurantDataMap[button.dataset.id] = { ...button.dataset };
-});
-
-const savedRestaurants = new Set();
 
 function safePlay(video) {
   if (!video) return;
@@ -1004,23 +955,15 @@ function openRestaurantScreenByData(data) {
   aboutText.textContent = data.about;
   valueText.textContent = data.value;
 
-  gridImg1.src = data.img1;
-  gridImg1.alt = data.img1title;
-  gridTitle1.textContent = data.img1title;
-  gridBadge1.textContent = data.img1badge;
-
-  gridImg2.src = data.img2;
-  gridImg2.alt = data.img2title;
-  gridTitle2.textContent = data.img2title;
-  gridBadge2.textContent = data.img2badge;
-
-  gridImg3.src = data.img3;
-  gridImg3.alt = data.img3title;
-  gridTitle3.textContent = data.img3title;
-  gridBadge3.textContent = data.img3badge;
-
-  savedScreen.classList.remove("open");
-  savedScreen.setAttribute("aria-hidden", "true");
+  for (let i = 0; i < 6; i++) {
+    const img = data[`img${i + 1}`] || "";
+    const cap = data[`cap${i + 1}`] || "";
+    const dur = data[`dur${i + 1}`] || "";
+    tileImgs[i].src = img;
+    tileImgs[i].alt = "";
+    tileCaps[i].textContent = cap;
+    tileDurs[i].textContent = dur;
+  }
 
   restaurantScreen.classList.add("open");
   restaurantScreen.setAttribute("aria-hidden", "false");
@@ -1031,60 +974,6 @@ function closeRestaurantOverlay() {
   restaurantScreen.setAttribute("aria-hidden", "true");
   overlayOpen = false;
   updateActiveVideo(activeIndex);
-}
-
-function openSavedScreen() {
-  overlayOpen = true;
-  videos.forEach((video) => video.pause());
-  restaurantScreen.classList.remove("open");
-  restaurantScreen.setAttribute("aria-hidden", "true");
-  renderSavedList();
-  savedScreen.classList.add("open");
-  savedScreen.setAttribute("aria-hidden", "false");
-}
-
-function closeSavedOverlay() {
-  savedScreen.classList.remove("open");
-  savedScreen.setAttribute("aria-hidden", "true");
-  overlayOpen = false;
-  updateActiveVideo(activeIndex);
-}
-
-function renderSavedList() {
-  savedList.innerHTML = "";
-  const ids = Array.from(savedRestaurants);
-  savedCountPill.textContent = ids.length + (ids.length === 1 ? " Saved" : " Saved");
-
-  if (ids.length === 0) {
-    savedEmpty.style.display = "block";
-    return;
-  }
-
-  savedEmpty.style.display = "none";
-
-  ids.forEach((id) => {
-    const data = restaurantDataMap[id];
-    if (!data) return;
-
-    const card = document.createElement("button");
-    card.type = "button";
-    card.className = "saved-card";
-    card.innerHTML = `
-      <img src="${data.logo}" alt="${data.name}" class="saved-card-logo">
-      <div>
-        <h3 class="saved-card-title">${data.name}</h3>
-        <p class="saved-card-sub">${data.description}</p>
-        <div class="saved-card-meta">
-          <div class="meta-pill">${data.rating}</div>
-          <div class="meta-pill">${data.orders}</div>
-        </div>
-      </div>
-    `;
-    card.addEventListener("click", () => {
-      openRestaurantScreenByData(data);
-    });
-    savedList.appendChild(card);
-  });
 }
 
 tapSoundBtn.addEventListener("click", () => {
@@ -1114,26 +1003,12 @@ document.querySelectorAll(".logo-action").forEach((button) => {
 });
 
 document.querySelectorAll(".heart-btn").forEach((button) => {
-  const slide = button.closest(".slide");
-  const logoAction = slide.querySelector(".logo-action");
-  const id = logoAction.dataset.id;
-
   button.addEventListener("click", () => {
-    const willBeActive = !button.classList.contains("active");
-
-    if (willBeActive) {
-      button.classList.add("active");
-      button.querySelector(".action-icon").textContent = "❤️";
-      savedRestaurants.add(id);
-      showToast("Saved to Favorites");
-      openSavedScreen();
-    } else {
-      button.classList.remove("active");
-      button.querySelector(".action-icon").textContent = "🤍";
-      savedRestaurants.delete(id);
-      showToast("Removed from Favorites");
-      renderSavedList();
-    }
+    button.classList.toggle("active");
+    const icon = button.querySelector(".action-icon");
+    const active = button.classList.contains("active");
+    icon.textContent = active ? "❤️" : "🤍";
+    showToast(active ? "Saved to Favorites" : "Removed from Favorites");
   });
 });
 
@@ -1145,7 +1020,6 @@ document.querySelectorAll(".placeholder-btn").forEach((button) => {
 });
 
 closeRestaurantScreen.addEventListener("click", closeRestaurantOverlay);
-closeSavedScreen.addEventListener("click", closeSavedOverlay);
 
 restaurantScreen.addEventListener("click", (e) => {
   if (e.target === restaurantScreen) {
@@ -1153,19 +1027,9 @@ restaurantScreen.addEventListener("click", (e) => {
   }
 });
 
-savedScreen.addEventListener("click", (e) => {
-  if (e.target === savedScreen) {
-    closeSavedOverlay();
-  }
-});
-
 document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape") {
-    if (restaurantScreen.classList.contains("open")) {
-      closeRestaurantOverlay();
-    } else if (savedScreen.classList.contains("open")) {
-      closeSavedOverlay();
-    }
+  if (e.key === "Escape" && restaurantScreen.classList.contains("open")) {
+    closeRestaurantOverlay();
   }
 });
 </script>
