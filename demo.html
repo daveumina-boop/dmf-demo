@@ -52,9 +52,9 @@ video {
 
 .info {
   position: absolute;
-  bottom: 120px;
+  bottom: 112px;
   left: 16px;
-  right: 90px;
+  right: 92px;
   color: white;
   z-index: 5;
 }
@@ -104,17 +104,12 @@ video {
   cursor: pointer;
   border: 1px solid rgba(255,255,255,0.15);
   backdrop-filter: blur(8px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-.scroll-up {
-  position: absolute;
-  bottom: 90px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 18px;
-  opacity: 0.9;
-  z-index: 10;
+.tap-sound.hide {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.96);
   pointer-events: none;
 }
 
@@ -223,7 +218,7 @@ video {
   position: relative;
   height: 100%;
   overflow-y: auto;
-  padding: calc(18px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom)) 16px;
+  padding: calc(18px + env(safe-area-inset-top)) 16px calc(34px + env(safe-area-inset-bottom)) 16px;
 }
 
 .restaurant-topbar {
@@ -274,59 +269,13 @@ video {
   font-size: 16px;
   line-height: 1.5;
   opacity: 0.92;
-  margin: 0 auto 28px auto;
+  margin: 0 auto 24px auto;
   max-width: 360px;
 }
 
-.content-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.content-card {
-  min-height: 120px;
-  border-radius: 18px;
-  background:
-    linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
-  border: 1px solid rgba(255,255,255,0.09);
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
-  overflow: hidden;
-  position: relative;
-}
-
-.content-card.tall {
-  grid-column: span 2;
-  min-height: 150px;
-}
-
-.content-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    linear-gradient(135deg, rgba(255,75,62,0.18), transparent 52%),
-    radial-gradient(circle at bottom right, rgba(255,255,255,0.06), transparent 40%);
-}
-
-.content-label {
-  position: absolute;
-  left: 14px;
-  bottom: 14px;
-  z-index: 2;
-  font-size: 14px;
-  font-weight: 700;
-  letter-spacing: 0.02em;
-}
-
 .screen-order-btn {
-  position: sticky;
-  left: 0;
-  right: 0;
-  bottom: 0;
   display: block;
-  margin-top: 22px;
+  margin: 0 0 18px 0;
   background: linear-gradient(90deg, #ff4b3e, #d10000);
   color: white;
   padding: 18px;
@@ -336,6 +285,159 @@ video {
   font-size: 18px;
   text-decoration: none;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+.section-title {
+  font-size: 13px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  opacity: 0.72;
+  margin: 16px 2px 10px 2px;
+  text-transform: uppercase;
+}
+
+.featured-list {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.food-card-large {
+  min-height: 128px;
+  border-radius: 20px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255,75,62,0.16), rgba(255,255,255,0.04)),
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.food-card-large::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 32%),
+    linear-gradient(to top, rgba(0,0,0,0.52), transparent 60%);
+}
+
+.card-content {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: 14px;
+  z-index: 2;
+}
+
+.card-title {
+  font-size: 23px;
+  font-weight: 800;
+  margin: 0 0 4px 0;
+}
+
+.card-sub {
+  margin: 0;
+  font-size: 14px;
+  opacity: 0.9;
+  line-height: 1.35;
+}
+
+.two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.mini-card {
+  min-height: 118px;
+  border-radius: 18px;
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(135deg, rgba(255,75,62,0.12), rgba(255,255,255,0.03)),
+    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+}
+
+.mini-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(to top, rgba(0,0,0,0.48), transparent 62%);
+}
+
+.mini-card .card-content {
+  left: 14px;
+  right: 14px;
+  bottom: 12px;
+}
+
+.mini-card .card-title {
+  font-size: 18px;
+  margin-bottom: 3px;
+}
+
+.mini-card .card-sub {
+  font-size: 13px;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.gallery-tile {
+  aspect-ratio: 1 / 1;
+  border-radius: 16px;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.08);
+  background:
+    linear-gradient(135deg, rgba(255,75,62,0.16), rgba(255,255,255,0.04)),
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+}
+
+.gallery-tile::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 25% 20%, rgba(255,255,255,0.08), transparent 35%),
+    linear-gradient(to top, rgba(0,0,0,0.42), transparent 60%);
+}
+
+.gallery-label {
+  position: absolute;
+  left: 12px;
+  bottom: 10px;
+  right: 10px;
+  z-index: 2;
+  font-size: 12px;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.about-card {
+  border-radius: 20px;
+  padding: 18px 16px;
+  background:
+    linear-gradient(135deg, rgba(255,75,62,0.12), rgba(255,255,255,0.03)),
+    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 10px;
+}
+
+.about-text {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.55;
+  opacity: 0.94;
 }
 
 @media (min-width: 700px) {
@@ -355,7 +457,7 @@ video {
   <div class="slide">
     <video
       id="video1"
-      src="bbq.mp4?v=50"
+      src="bbq.mp4?v=51"
       autoplay
       muted
       playsinline
@@ -365,18 +467,27 @@ video {
     ></video>
 
     <div id="tapSound" class="tap-sound">🔊 TAP FOR SOUND</div>
-    <div class="scroll-up">⬆️ Scroll Up</div>
 
     <div class="actions">
       <button
         class="logo-action"
         type="button"
         data-name="Real Smoq'ed BBQ"
-        data-logo="bbq-logo.png?v=50"
+        data-logo="bbq-logo.png?v=51"
         data-description="Slow-smoked BBQ favorites with ribs, brisket, and bold comfort-food flavor."
         data-order="https://realsmoqedbbq.com/menu"
+        data-featured-title="Pitmaster Plates"
+        data-featured-sub="Smoked brisket, ribs, pulled pork, and house sides built for serious BBQ cravings."
+        data-pick1-title="Brisket"
+        data-pick1-sub="Tender • Smoky"
+        data-pick2-title="Ribs"
+        data-pick2-sub="Sauced • Charred"
+        data-gallery1="Smoked Meats"
+        data-gallery2="Loaded Sides"
+        data-gallery3="Sauce Finish"
+        data-about="Real Smoq'ed BBQ brings rich smoke, bold bark, and comfort-food energy into one craveable experience. This page is built to feel like a restaurant profile inside DMF, not just a blank placeholder."
       >
-        <img src="bbq-logo.png?v=50" class="logo-btn" alt="Real Smoq'ed BBQ">
+        <img src="bbq-logo.png?v=51" class="logo-btn" alt="Real Smoq'ed BBQ">
       </button>
 
       <button class="icon-btn heart-btn" type="button" aria-label="Like">
@@ -408,7 +519,7 @@ video {
   <div class="slide">
     <video
       id="video2"
-      src="pizzazz.mp4?v=50"
+      src="pizzazz.mp4?v=51"
       muted
       playsinline
       webkit-playsinline
@@ -421,11 +532,21 @@ video {
         class="logo-action"
         type="button"
         data-name="Pizzazz on the Circle"
-        data-logo="pizzazz-logo.png?v=50"
+        data-logo="pizzazz-logo.png?v=51"
         data-description="Classic pizza, pasta, and Italian favorites served with neighborhood energy."
         data-order="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
+        data-featured-title="Italian Favorites"
+        data-featured-sub="Neighborhood pizza, hearty pasta, and familiar comfort dishes made to order."
+        data-pick1-title="Pizza"
+        data-pick1-sub="Hot • Fresh"
+        data-pick2-title="Pasta"
+        data-pick2-sub="Classic • Comfort"
+        data-gallery1="Dough Prep"
+        data-gallery2="Cheese Pull"
+        data-gallery3="Kitchen Energy"
+        data-about="Pizzazz on the Circle combines classic Italian staples with an easy neighborhood feel. The goal here is a cleaner restaurant page that feels filled in, polished, and ready for the next stage of the demo."
       >
-        <img src="pizzazz-logo.png?v=50" class="logo-btn" alt="Pizzazz on the Circle">
+        <img src="pizzazz-logo.png?v=51" class="logo-btn" alt="Pizzazz on the Circle">
       </button>
 
       <button class="icon-btn heart-btn" type="button" aria-label="Like">
@@ -468,22 +589,51 @@ video {
     <h1 id="screenName" class="screen-name"></h1>
     <p id="screenDesc" class="screen-desc"></p>
 
-    <div class="content-grid">
-      <div class="content-card tall">
-        <div class="content-label">Featured Items</div>
-      </div>
-      <div class="content-card">
-        <div class="content-label">Popular Picks</div>
-      </div>
-      <div class="content-card">
-        <div class="content-label">Gallery</div>
-      </div>
-      <div class="content-card tall">
-        <div class="content-label">Restaurant Highlights</div>
+    <a id="screenOrderBtn" href="#" target="_blank" class="screen-order-btn">ORDER NOW</a>
+
+    <div class="section-title">Featured</div>
+    <div class="featured-list">
+      <div class="food-card-large">
+        <div class="card-content">
+          <h3 id="featuredTitle" class="card-title"></h3>
+          <p id="featuredSub" class="card-sub"></p>
+        </div>
       </div>
     </div>
 
-    <a id="screenOrderBtn" href="#" target="_blank" class="screen-order-btn">ORDER NOW</a>
+    <div class="section-title">Popular Picks</div>
+    <div class="two-col">
+      <div class="mini-card">
+        <div class="card-content">
+          <h3 id="pick1Title" class="card-title"></h3>
+          <p id="pick1Sub" class="card-sub"></p>
+        </div>
+      </div>
+      <div class="mini-card">
+        <div class="card-content">
+          <h3 id="pick2Title" class="card-title"></h3>
+          <p id="pick2Sub" class="card-sub"></p>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-title">Gallery</div>
+    <div class="gallery-grid">
+      <div class="gallery-tile">
+        <div id="gallery1" class="gallery-label"></div>
+      </div>
+      <div class="gallery-tile">
+        <div id="gallery2" class="gallery-label"></div>
+      </div>
+      <div class="gallery-tile">
+        <div id="gallery3" class="gallery-label"></div>
+      </div>
+    </div>
+
+    <div class="section-title">Restaurant Highlights</div>
+    <div class="about-card">
+      <p id="aboutText" class="about-text"></p>
+    </div>
   </div>
 </div>
 
@@ -502,6 +652,16 @@ const screenLogo = document.getElementById("screenLogo");
 const screenName = document.getElementById("screenName");
 const screenDesc = document.getElementById("screenDesc");
 const screenOrderBtn = document.getElementById("screenOrderBtn");
+const featuredTitle = document.getElementById("featuredTitle");
+const featuredSub = document.getElementById("featuredSub");
+const pick1Title = document.getElementById("pick1Title");
+const pick1Sub = document.getElementById("pick1Sub");
+const pick2Title = document.getElementById("pick2Title");
+const pick2Sub = document.getElementById("pick2Sub");
+const gallery1 = document.getElementById("gallery1");
+const gallery2 = document.getElementById("gallery2");
+const gallery3 = document.getElementById("gallery3");
+const aboutText = document.getElementById("aboutText");
 const placeholderToast = document.getElementById("placeholderToast");
 
 let soundEnabled = false;
@@ -570,15 +730,26 @@ function showToast(message) {
   }, 1400);
 }
 
-function openRestaurantScreen(data) {
+function openRestaurantScreen(button) {
   overlayOpen = true;
   videos.forEach((video) => video.pause());
 
-  screenLogo.src = data.logo;
-  screenLogo.alt = data.name;
-  screenName.textContent = data.name;
-  screenDesc.textContent = data.description;
-  screenOrderBtn.href = data.order;
+  screenLogo.src = button.dataset.logo;
+  screenLogo.alt = button.dataset.name;
+  screenName.textContent = button.dataset.name;
+  screenDesc.textContent = button.dataset.description;
+  screenOrderBtn.href = button.dataset.order;
+
+  featuredTitle.textContent = button.dataset.featuredTitle;
+  featuredSub.textContent = button.dataset.featuredSub;
+  pick1Title.textContent = button.dataset.pick1Title;
+  pick1Sub.textContent = button.dataset.pick1Sub;
+  pick2Title.textContent = button.dataset.pick2Title;
+  pick2Sub.textContent = button.dataset.pick2Sub;
+  gallery1.textContent = button.dataset.gallery1;
+  gallery2.textContent = button.dataset.gallery2;
+  gallery3.textContent = button.dataset.gallery3;
+  aboutText.textContent = button.dataset.about;
 
   restaurantScreen.classList.add("open");
   restaurantScreen.setAttribute("aria-hidden", "false");
@@ -593,7 +764,10 @@ function closeRestaurantOverlay() {
 
 tapSoundBtn.addEventListener("click", () => {
   soundEnabled = true;
-  tapSoundBtn.style.display = "none";
+  tapSoundBtn.classList.add("hide");
+  setTimeout(() => {
+    tapSoundBtn.style.display = "none";
+  }, 200);
   updateActiveVideo(activeIndex);
 });
 
@@ -616,12 +790,7 @@ window.addEventListener("resize", detectActiveSlide);
 
 document.querySelectorAll(".logo-action").forEach((button) => {
   button.addEventListener("click", () => {
-    openRestaurantScreen({
-      name: button.dataset.name,
-      logo: button.dataset.logo,
-      description: button.dataset.description,
-      order: button.dataset.order
-    });
+    openRestaurantScreen(button);
   });
 });
 
