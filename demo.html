@@ -1,213 +1,261 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>DMF Demo</title>
 
-<style>
-html, body {
-  margin: 0;
-  padding: 0;
-  background: black;
-  overflow: hidden;
-  font-family: Arial, sans-serif;
-}
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      overflow: hidden;
+      font-family: -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+    }
 
-/* FEED */
-.feed {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-  -webkit-overflow-scrolling: touch;
-}
+    .feed {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
 
-/* SLIDES */
-.slide {
-  position: relative;
-  height: 100vh;
-  scroll-snap-align: start;
-  background: black;
-}
+    .slide {
+      position: relative;
+      height: 100vh;
+      scroll-snap-align: start;
+      background: #000;
+    }
 
-/* VIDEO */
-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  background: black;
-}
+    video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transform: scale(1.02);
+      background: #000;
+    }
 
-/* FADE */
-.fade {
-  position: absolute;
-  bottom: 0;
-  height: 40%;
-  width: 100%;
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-  pointer-events: none;
-}
+    .fade {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 45%;
+      background: linear-gradient(to top, rgba(0,0,0,0.95), rgba(0,0,0,0));
+      pointer-events: none;
+    }
 
-/* TEXT */
-.info {
-  position: absolute;
-  bottom: 120px;
-  left: 16px;
-  right: 16px;
-  color: white;
-  z-index: 5;
-}
+    .info {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: 120px;
+      color: #fff;
+      z-index: 5;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
 
-.info h2 {
-  margin: 0;
-  font-size: 24px;
-}
+    .info h2 {
+      margin: 0;
+      font-size: 26px;
+      font-weight: 700;
+    }
 
-/* ORDER BUTTON */
-.order-btn {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: calc(20px + env(safe-area-inset-bottom));
-  background: linear-gradient(90deg, #ff3b30, #d10000);
-  color: white;
-  padding: 18px;
-  text-align: center;
-  font-weight: bold;
-  border-radius: 14px;
-  font-size: 18px;
-  text-decoration: none;
-  z-index: 10;
-}
+    .tap-sound {
+      position: absolute;
+      top: 42%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: rgba(0,0,0,0.75);
+      color: #fff;
+      padding: 22px 30px;
+      border-radius: 40px;
+      font-size: 22px;
+      font-weight: 700;
+      z-index: 10;
+      cursor: pointer;
+      border: 1px solid rgba(255,255,255,0.15);
+      box-shadow: 0 10px 24px rgba(0,0,0,0.35);
+      animation: pulse 1.6s infinite;
+    }
 
-/* BIG TAP FOR SOUND */
-.tap-sound {
-  position: absolute;
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  background: rgba(0,0,0,0.7);
-  color: white;
-  padding: 20px 28px;
-  border-radius: 30px;
-  font-size: 20px;
-  font-weight: bold;
-  z-index: 10;
-  cursor: pointer;
-  border: 1px solid rgba(255,255,255,0.15);
-}
+    .scroll-up {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 88px;
+      text-align: center;
+      color: #fff;
+      font-size: 18px;
+      opacity: 0.9;
+      z-index: 10;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+      animation: float 2s infinite;
+      pointer-events: none;
+    }
 
-/* SCROLL UP PROMPT */
-.scroll-up {
-  position: absolute;
-  bottom: 90px;
-  width: 100%;
-  text-align: center;
-  color: white;
-  font-size: 18px;
-  opacity: 0.9;
-  z-index: 10;
-  pointer-events: none;
-}
-</style>
+    .actions {
+      position: absolute;
+      right: 16px;
+      bottom: 170px;
+      z-index: 10;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      color: #fff;
+      text-align: center;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
+
+    .actions div {
+      font-size: 34px;
+      line-height: 1;
+    }
+
+    .order-btn {
+      position: absolute;
+      left: 18px;
+      right: 18px;
+      bottom: calc(20px + env(safe-area-inset-bottom));
+      background: linear-gradient(90deg, #ff3b30, #b80000);
+      color: #fff;
+      padding: 20px;
+      text-align: center;
+      font-weight: 700;
+      border-radius: 16px;
+      font-size: 18px;
+      text-decoration: none;
+      z-index: 10;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+    }
+
+    @keyframes pulse {
+      0% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.06); }
+      100% { transform: translate(-50%, -50%) scale(1); }
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-6px); }
+      100% { transform: translateY(0); }
+    }
+  </style>
 </head>
 
 <body>
 
-<div class="feed" id="feed">
+  <div class="feed" id="feed">
 
-  <!-- BBQ -->
-  <div class="slide">
-    <video
-      id="video1"
-      src="bbq.mp4?v=21"
-      autoplay
-      muted
-      playsinline
-      loop
-      preload="auto"
-    ></video>
+    <!-- BBQ -->
+    <div class="slide">
+      <video
+        id="video1"
+        src="bbq.mp4?v=30"
+        autoplay
+        muted
+        playsinline
+        loop
+        preload="auto"
+      ></video>
 
-    <div id="tapSound" class="tap-sound">🔊 TAP FOR SOUND</div>
-    <div class="scroll-up">⬆️ Scroll Up</div>
+      <div id="tapSound" class="tap-sound">🔊 TAP FOR SOUND</div>
+      <div class="scroll-up">⬆️ Scroll Up</div>
 
-    <div class="fade"></div>
+      <div class="actions">
+        <div>❤️</div>
+        <div>💬</div>
+        <div>🔗</div>
+        <div>🔖</div>
+      </div>
 
-    <div class="info">
-      <h2>Real Smoq'ed BBQ</h2>
+      <div class="fade"></div>
+
+      <div class="info">
+        <h2>Real Smoq'ed BBQ</h2>
+      </div>
+
+      <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
+        ORDER NOW
+      </a>
     </div>
 
-    <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
-      ORDER NOW
-    </a>
-  </div>
+    <!-- PIZZAZZ -->
+    <div class="slide">
+      <video
+        id="video2"
+        src="pizzazz.mp4?v=30"
+        muted
+        playsinline
+        loop
+        preload="auto"
+      ></video>
 
-  <!-- PIZZAZZ -->
-  <div class="slide">
-    <video
-      id="video2"
-      src="pizzazz.mp4?v=21"
-      muted
-      playsinline
-      loop
-      preload="auto"
-    ></video>
+      <div class="actions">
+        <div>❤️</div>
+        <div>💬</div>
+        <div>🔗</div>
+        <div>🔖</div>
+      </div>
 
-    <div class="fade"></div>
+      <div class="fade"></div>
 
-    <div class="info">
-      <h2>Pizzazz on the Circle</h2>
+      <div class="info">
+        <h2>Pizzazz on the Circle</h2>
+      </div>
+
+      <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
+        ORDER NOW
+      </a>
     </div>
 
-    <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
-      ORDER NOW
-    </a>
   </div>
 
-</div>
+  <script>
+    const feed = document.getElementById("feed");
+    const videos = [
+      document.getElementById("video1"),
+      document.getElementById("video2")
+    ];
+    const tapSoundBtn = document.getElementById("tapSound");
 
-<script>
-const feed = document.getElementById("feed");
-const videos = [
-  document.getElementById("video1"),
-  document.getElementById("video2")
-];
-const tapSoundBtn = document.getElementById("tapSound");
+    let soundEnabled = false;
+    let activeIndex = 0;
 
-let soundEnabled = false;
-let activeIndex = 0;
+    function updateActiveVideo(index) {
+      activeIndex = index;
 
-function updateActiveVideo(index) {
-  activeIndex = index;
-
-  videos.forEach((video, i) => {
-    if (i === index) {
-      video.muted = !soundEnabled;
-      video.play().catch(() => {});
-    } else {
-      video.pause();
-      video.muted = true;
-      video.currentTime = 0;
+      videos.forEach((video, i) => {
+        if (i === index) {
+          video.muted = !soundEnabled;
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+          video.muted = true;
+          video.currentTime = 0;
+        }
+      });
     }
-  });
-}
 
-function detectActiveSlide() {
-  const index = Math.round(feed.scrollTop / window.innerHeight);
-  updateActiveVideo(index);
-}
+    function detectActiveSlide() {
+      const index = Math.round(feed.scrollTop / window.innerHeight);
+      updateActiveVideo(index);
+    }
 
-tapSoundBtn.addEventListener("click", () => {
-  soundEnabled = true;
-  tapSoundBtn.style.display = "none";
-  updateActiveVideo(activeIndex);
-});
+    tapSoundBtn.addEventListener("click", () => {
+      soundEnabled = true;
+      tapSoundBtn.style.display = "none";
+      updateActiveVideo(activeIndex);
+    });
 
-feed.addEventListener("scroll", detectActiveSlide);
+    feed.addEventListener("scroll", detectActiveSlide);
 
-window.addEventListener("load", () => {
-  updateActiveVideo(0);
-});
-</script>
+    window.addEventListener("load", () => {
+      updateActiveVideo(0);
+    });
+  </script>
 
 </body>
 </html>
