@@ -1,101 +1,158 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DMF Feed</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DMF Feed</title>
 
-<style>
-body {
-  margin: 0;
-  background: black;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  overflow: hidden;
-}
+  <style>
+    * {
+      box-sizing: border-box;
+    }
 
-.feed {
-  height: 100vh;
-  overflow-y: scroll;
-  scroll-snap-type: y mandatory;
-}
+    html, body {
+      margin: 0;
+      padding: 0;
+      background: #000;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      overflow: hidden;
+    }
 
-.slide {
-  height: 100vh;
-  position: relative;
-  scroll-snap-align: start;
-}
+    .feed {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      -webkit-overflow-scrolling: touch;
+    }
 
-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+    .slide {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      scroll-snap-align: start;
+      background: #000;
+      overflow: hidden;
+    }
 
-.overlay {
-  position: absolute;
-  bottom: 20px;
-  left: 16px;
-  right: 16px;
-  color: white;
-}
+    .feed-video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      background: #000;
+    }
 
-.restaurant {
-  font-size: 22px;
-  font-weight: bold;
-}
+    .overlay {
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      bottom: 20px;
+      color: #fff;
+      z-index: 10;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.8);
+    }
 
-.desc {
-  font-size: 14px;
-  opacity: 0.9;
-}
+    .restaurant {
+      font-size: 22px;
+      font-weight: 900;
+      margin-bottom: 6px;
+    }
 
-.order-btn {
-  margin-top: 10px;
-  background: red;
-  padding: 14px;
-  text-align: center;
-  border-radius: 12px;
-  font-weight: bold;
-  text-decoration: none;
-  color: white;
-  display: block;
-}
-</style>
+    .description {
+      font-size: 14px;
+      color: #e6e6e6;
+      line-height: 1.4;
+      margin-bottom: 12px;
+      max-width: 340px;
+    }
+
+    .order-btn {
+      display: block;
+      width: 100%;
+      background: linear-gradient(90deg, #ff3b30, #d10000);
+      color: #fff;
+      text-align: center;
+      padding: 16px 18px;
+      border-radius: 16px;
+      font-weight: 900;
+      font-size: 18px;
+      text-decoration: none;
+      box-shadow: 0 14px 36px rgba(217,52,43,0.45);
+    }
+
+    .top-label {
+      position: absolute;
+      top: 18px;
+      left: 16px;
+      z-index: 10;
+      background: rgba(0,0,0,0.45);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 9px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 800;
+      backdrop-filter: blur(8px);
+    }
+
+    .hint {
+      position: absolute;
+      bottom: 96px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 10;
+      font-size: 12px;
+      font-weight: 700;
+      color: rgba(255,255,255,0.92);
+      background: rgba(0,0,0,0.40);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 9px 14px;
+      border-radius: 999px;
+      backdrop-filter: blur(8px);
+    }
+  </style>
 </head>
-
 <body>
 
-<div class="feed">
+  <div class="feed">
 
-  <!-- BBQ -->
-  <div class="slide">
-    <video src="bbq.mp4" autoplay muted loop playsinline></video>
+    <!-- BBQ -->
+    <section class="slide">
+      <div class="top-label">DMF — Discover → Order Direct</div>
 
-    <div class="overlay">
-      <div class="restaurant">🔥 Real Smoq'ed BBQ</div>
-      <div class="desc">Brisket. Ribs. Real smoke.</div>
+      <video class="feed-video" muted loop playsinline autoplay preload="metadata">
+        <source src="./bbq.mp4" type="video/mp4" />
+      </video>
 
-      <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
-        Order Now
-      </a>
-    </div>
+      <div class="overlay">
+        <div class="restaurant">Real Smoq'ed BBQ</div>
+        <div class="description">Brisket. Ribs. Real smoke.</div>
+        <a href="https://realsmoqedbbq.com/menu" target="_blank" rel="noopener noreferrer" class="order-btn">
+          Order Now
+        </a>
+      </div>
+
+      <div class="hint">Swipe up</div>
+    </section>
+
+    <!-- PIZZAZZ -->
+    <section class="slide">
+      <div class="top-label">DMF — Discover → Order Direct</div>
+
+      <video class="feed-video" muted loop playsinline autoplay preload="metadata">
+        <source src="./pizzazz.mp4" type="video/mp4" />
+      </video>
+
+      <div class="overlay">
+        <div class="restaurant">Pizzazz on the Circle</div>
+        <div class="description">Pizza. Pasta. Downtown flavor.</div>
+        <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" rel="noopener noreferrer" class="order-btn">
+          Order Now
+        </a>
+      </div>
+    </section>
+
   </div>
-
-  <!-- PIZZAZZ -->
-  <div class="slide">
-    <video src="pizzazz.mp4" autoplay muted loop playsinline></video>
-
-    <div class="overlay">
-      <div class="restaurant">🍕 Pizzazz on the Circle</div>
-      <div class="desc">Pizza. Pasta. Downtown flavor.</div>
-
-      <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
-        Order Now
-      </a>
-    </div>
-  </div>
-
-</div>
 
 </body>
 </html>
