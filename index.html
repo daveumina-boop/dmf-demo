@@ -1,29 +1,200 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DMF</title>
-
-<!-- FORCE NO CACHE -->
-<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
-<meta http-equiv="Pragma" content="no-cache">
-<meta http-equiv="Expires" content="0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <style>
+* { box-sizing: border-box; }
+
 body {
   margin: 0;
   background: black;
+  overflow: hidden;
+  font-family: Arial;
+}
+
+/* FEED */
+.feed {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
+
+.slide {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: start;
+}
+
+/* VIDEO */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* FADE */
+.fade {
+  position: absolute;
+  bottom: 0;
+  height: 45%;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
+
+/* TEXT */
+.info {
+  position: absolute;
+  bottom: 150px;
+  left: 16px;
+  color: white;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 24px;
+}
+
+.info p {
+  margin-top: 6px;
+  font-size: 16px;
+}
+
+/* 🔥 BIG ICONS (FIXED) */
+.actions {
+  position: absolute;
+  right: 16px;
+  bottom: 200px;
+  color: white;
+  text-align: center;
+}
+
+.actions div {
+  margin: 24px 0;
+  font-size: 34px; /* BIG */
+}
+
+/* 🔥 ORDER BUTTON */
+.order-btn {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: calc(90px + env(safe-area-inset-bottom));
+  background: linear-gradient(90deg, #ff3b30, #d10000);
+  color: white;
+  padding: 20px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 16px;
+  font-size: 20px;
+  z-index: 20;
+}
+
+/* 🔥 SOUND LABEL (FIXED SIZE + POSITION) */
+.sound {
+  position: absolute;
+  top: 80px;
+  left: 16px;
+  color: white;
+  font-size: 16px;
+  background: rgba(0,0,0,0.5);
+  padding: 8px 12px;
+  border-radius: 20px;
+}
+
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #5a0a00;
+  display: flex;
+  justify-content: space-around;
+  padding: 14px 0;
+  color: white;
+  font-size: 18px;
 }
 </style>
-
-<!-- 🔥 AUTO REDIRECT TO DEMO -->
-<script>
-  window.location.href = "demo.html?v=" + Date.now();
-</script>
-
 </head>
 
 <body>
+
+<div class="feed">
+
+  <!-- BBQ -->
+  <div class="slide">
+    <video id="video1" src="bbq.mp4?v=3" autoplay muted loop playsinline></video>
+
+    <div class="fade"></div>
+    <div class="sound">🔊 Tap for sound</div>
+
+    <div class="actions">
+      <div>❤️</div>
+      <div>💬</div>
+      <div>🔗</div>
+      <div>🔖</div>
+    </div>
+
+    <div class="info">
+      <h2>Real Smoq'ed BBQ</h2>
+      <p>Ribs • Brisket • BBQ</p>
+    </div>
+
+    <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
+      ORDER NOW
+    </a>
+  </div>
+
+  <!-- PIZZAZZ -->
+  <div class="slide">
+    <video id="video2" src="pizzazz.mp4?v=3" autoplay muted loop playsinline></video>
+
+    <div class="fade"></div>
+    <div class="sound">🔊 Tap for sound</div>
+
+    <div class="actions">
+      <div>❤️</div>
+      <div>💬</div>
+      <div>🔗</div>
+      <div>🔖</div>
+    </div>
+
+    <div class="info">
+      <h2>Pizzazz on the Circle</h2>
+      <p>Pizza • Pasta • Italian</p>
+    </div>
+
+    <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
+      ORDER NOW
+    </a>
+  </div>
+
+</div>
+
+<div class="nav">
+  <div>🏠</div>
+  <div>⭐</div>
+  <div>📦</div>
+  <div>👤</div>
+</div>
+
+<!-- 🔥 AUDIO FIX SCRIPT -->
+<script>
+const videos = document.querySelectorAll("video");
+
+videos.forEach(video => {
+  video.addEventListener("click", () => {
+    videos.forEach(v => {
+      v.muted = true;
+      v.pause();
+      v.currentTime = v.currentTime;
+    });
+
+    video.muted = false;
+    video.play();
+  });
+});
+</script>
+
 </body>
 </html>
