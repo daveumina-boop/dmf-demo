@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-
+<title>DMF Demo</title>
 <style>
 html, body {
   margin: 0;
@@ -10,6 +10,12 @@ html, body {
   background: black;
   overflow: hidden;
   font-family: Arial, sans-serif;
+  height: 100%;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .feed {
@@ -24,6 +30,7 @@ html, body {
   height: 100vh;
   scroll-snap-align: start;
   background: black;
+  overflow: hidden;
 }
 
 video {
@@ -79,6 +86,7 @@ video {
   text-decoration: none;
   z-index: 10;
   box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+  border: none;
 }
 
 .tap-sound {
@@ -95,6 +103,7 @@ video {
   z-index: 10;
   cursor: pointer;
   border: 1px solid rgba(255,255,255,0.15);
+  backdrop-filter: blur(8px);
 }
 
 .scroll-up {
@@ -121,6 +130,19 @@ video {
   color: white;
 }
 
+.icon-btn,
+.logo-action {
+  background: transparent;
+  border: none;
+  padding: 0;
+  margin: 0;
+  color: white;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .logo-btn {
   width: 58px;
   height: 58px;
@@ -129,12 +151,198 @@ video {
   border: 2px solid rgba(255,255,255,0.9);
   box-shadow: 0 4px 12px rgba(0,0,0,0.35);
   background: rgba(0,0,0,0.35);
+  display: block;
 }
 
 .action-icon {
   font-size: 40px;
   line-height: 1;
   text-shadow: 0 2px 10px rgba(0,0,0,0.6);
+  transition: transform 0.18s ease, opacity 0.18s ease, filter 0.18s ease;
+}
+
+.icon-btn:active .action-icon,
+.logo-action:active .logo-btn {
+  transform: scale(0.94);
+}
+
+.heart-btn.active .action-icon {
+  filter: drop-shadow(0 0 10px rgba(255,75,62,0.75));
+  transform: scale(1.08);
+}
+
+.placeholder-toast {
+  position: fixed;
+  left: 50%;
+  bottom: calc(110px + env(safe-area-inset-bottom));
+  transform: translateX(-50%) translateY(16px);
+  min-width: 170px;
+  max-width: calc(100vw - 32px);
+  text-align: center;
+  padding: 14px 18px;
+  border-radius: 16px;
+  background: rgba(18,18,18,0.92);
+  color: white;
+  border: 1px solid rgba(255,255,255,0.12);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.35);
+  z-index: 60;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.22s ease, transform 0.22s ease;
+  backdrop-filter: blur(10px);
+  font-size: 15px;
+  font-weight: 600;
+}
+
+.placeholder-toast.show {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.restaurant-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background:
+    radial-gradient(circle at top right, rgba(255,75,62,0.18), transparent 32%),
+    linear-gradient(180deg, #111111 0%, #080808 55%, #000000 100%);
+  color: white;
+  transform: translateX(100%);
+  opacity: 0;
+  pointer-events: none;
+  transition: transform 0.32s ease, opacity 0.32s ease;
+}
+
+.restaurant-screen.open {
+  transform: translateX(0);
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.restaurant-inner {
+  position: relative;
+  height: 100%;
+  overflow-y: auto;
+  padding: calc(18px + env(safe-area-inset-top)) 16px calc(110px + env(safe-area-inset-bottom)) 16px;
+}
+
+.restaurant-topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 26px;
+}
+
+.back-btn {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.06);
+  color: white;
+  padding: 12px 16px;
+  border-radius: 14px;
+  font-size: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+}
+
+.screen-logo-wrap {
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-bottom: 20px;
+}
+
+.screen-logo {
+  width: 96px;
+  height: 96px;
+  border-radius: 24px;
+  object-fit: cover;
+  border: 2px solid rgba(255,255,255,0.92);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 10px 28px rgba(0,0,0,0.38);
+}
+
+.screen-name {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  margin: 0 0 10px 0;
+}
+
+.screen-desc {
+  text-align: center;
+  font-size: 16px;
+  line-height: 1.5;
+  opacity: 0.92;
+  margin: 0 auto 28px auto;
+  max-width: 360px;
+}
+
+.content-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-top: 10px;
+}
+
+.content-card {
+  min-height: 120px;
+  border-radius: 18px;
+  background:
+    linear-gradient(135deg, rgba(255,255,255,0.08), rgba(255,255,255,0.03));
+  border: 1px solid rgba(255,255,255,0.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.04);
+  overflow: hidden;
+  position: relative;
+}
+
+.content-card.tall {
+  grid-column: span 2;
+  min-height: 150px;
+}
+
+.content-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(135deg, rgba(255,75,62,0.18), transparent 52%),
+    radial-gradient(circle at bottom right, rgba(255,255,255,0.06), transparent 40%);
+}
+
+.content-label {
+  position: absolute;
+  left: 14px;
+  bottom: 14px;
+  z-index: 2;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+}
+
+.screen-order-btn {
+  position: sticky;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: block;
+  margin-top: 22px;
+  background: linear-gradient(90deg, #ff4b3e, #d10000);
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 16px;
+  font-size: 18px;
+  text-decoration: none;
+  box-shadow: 0 8px 18px rgba(0,0,0,0.35);
+}
+
+@media (min-width: 700px) {
+  .restaurant-inner {
+    max-width: 520px;
+    margin: 0 auto;
+  }
 }
 </style>
 </head>
@@ -151,6 +359,7 @@ video {
       autoplay
       muted
       playsinline
+      webkit-playsinline
       loop
       preload="auto"
     ></video>
@@ -159,10 +368,28 @@ video {
     <div class="scroll-up">⬆️ Scroll Up</div>
 
     <div class="actions">
-      <img src="bbq-logo.png?v=50" class="logo-btn" alt="Real Smoq'ed BBQ">
-      <div class="action-icon">❤️</div>
-      <div class="action-icon">💬</div>
-      <div class="action-icon">🔗</div>
+      <button
+        class="logo-action"
+        type="button"
+        data-name="Real Smoq'ed BBQ"
+        data-logo="bbq-logo.png?v=50"
+        data-description="Slow-smoked BBQ favorites with ribs, brisket, and bold comfort-food flavor."
+        data-order="https://realsmoqedbbq.com/menu"
+      >
+        <img src="bbq-logo.png?v=50" class="logo-btn" alt="Real Smoq'ed BBQ">
+      </button>
+
+      <button class="icon-btn heart-btn" type="button" aria-label="Like">
+        <span class="action-icon">🤍</span>
+      </button>
+
+      <button class="icon-btn placeholder-btn" type="button" aria-label="Comment">
+        <span class="action-icon">💬</span>
+      </button>
+
+      <button class="icon-btn placeholder-btn" type="button" aria-label="Share">
+        <span class="action-icon">🔗</span>
+      </button>
     </div>
 
     <div class="fade"></div>
@@ -184,15 +411,34 @@ video {
       src="pizzazz.mp4?v=50"
       muted
       playsinline
+      webkit-playsinline
       loop
       preload="auto"
     ></video>
 
     <div class="actions">
-      <img src="pizzazz-logo.png?v=50" class="logo-btn" alt="Pizzazz on the Circle">
-      <div class="action-icon">❤️</div>
-      <div class="action-icon">💬</div>
-      <div class="action-icon">🔗</div>
+      <button
+        class="logo-action"
+        type="button"
+        data-name="Pizzazz on the Circle"
+        data-logo="pizzazz-logo.png?v=50"
+        data-description="Classic pizza, pasta, and Italian favorites served with neighborhood energy."
+        data-order="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
+      >
+        <img src="pizzazz-logo.png?v=50" class="logo-btn" alt="Pizzazz on the Circle">
+      </button>
+
+      <button class="icon-btn heart-btn" type="button" aria-label="Like">
+        <span class="action-icon">🤍</span>
+      </button>
+
+      <button class="icon-btn placeholder-btn" type="button" aria-label="Comment">
+        <span class="action-icon">💬</span>
+      </button>
+
+      <button class="icon-btn placeholder-btn" type="button" aria-label="Share">
+        <span class="action-icon">🔗</span>
+      </button>
     </div>
 
     <div class="fade"></div>
@@ -209,6 +455,40 @@ video {
 
 </div>
 
+<div id="restaurantScreen" class="restaurant-screen" aria-hidden="true">
+  <div class="restaurant-inner">
+    <div class="restaurant-topbar">
+      <button id="closeRestaurantScreen" class="back-btn" type="button">← Back</button>
+    </div>
+
+    <div class="screen-logo-wrap">
+      <img id="screenLogo" class="screen-logo" src="" alt="">
+    </div>
+
+    <h1 id="screenName" class="screen-name"></h1>
+    <p id="screenDesc" class="screen-desc"></p>
+
+    <div class="content-grid">
+      <div class="content-card tall">
+        <div class="content-label">Featured Items</div>
+      </div>
+      <div class="content-card">
+        <div class="content-label">Popular Picks</div>
+      </div>
+      <div class="content-card">
+        <div class="content-label">Gallery</div>
+      </div>
+      <div class="content-card tall">
+        <div class="content-label">Restaurant Highlights</div>
+      </div>
+    </div>
+
+    <a id="screenOrderBtn" href="#" target="_blank" class="screen-order-btn">ORDER NOW</a>
+  </div>
+</div>
+
+<div id="placeholderToast" class="placeholder-toast">Coming soon</div>
+
 <script>
 const feed = document.getElementById("feed");
 const videos = [
@@ -216,21 +496,61 @@ const videos = [
   document.getElementById("video2")
 ];
 const tapSoundBtn = document.getElementById("tapSound");
+const restaurantScreen = document.getElementById("restaurantScreen");
+const closeRestaurantScreen = document.getElementById("closeRestaurantScreen");
+const screenLogo = document.getElementById("screenLogo");
+const screenName = document.getElementById("screenName");
+const screenDesc = document.getElementById("screenDesc");
+const screenOrderBtn = document.getElementById("screenOrderBtn");
+const placeholderToast = document.getElementById("placeholderToast");
 
 let soundEnabled = false;
 let activeIndex = 0;
+let overlayOpen = false;
+let toastTimer = null;
+
+function safePlay(video) {
+  if (!video) return;
+  const playAttempt = video.play();
+  if (playAttempt && typeof playAttempt.then === "function") {
+    playAttempt.catch(() => {});
+  }
+}
+
+function prepareVideos() {
+  videos.forEach((video) => {
+    video.setAttribute("preload", "auto");
+    video.load();
+
+    video.addEventListener("loadeddata", () => {
+      if (video === videos[activeIndex] && !overlayOpen) {
+        video.muted = !soundEnabled;
+        safePlay(video);
+      }
+    });
+
+    video.addEventListener("canplay", () => {
+      if (video === videos[activeIndex] && !overlayOpen) {
+        video.muted = !soundEnabled;
+        safePlay(video);
+      }
+    });
+  });
+}
 
 function updateActiveVideo(index) {
-  activeIndex = index;
+  activeIndex = Math.max(0, Math.min(index, videos.length - 1));
 
   videos.forEach((video, i) => {
-    if (i === index) {
+    if (i === activeIndex && !overlayOpen) {
       video.muted = !soundEnabled;
-      video.play().catch(() => {});
+      safePlay(video);
     } else {
       video.pause();
       video.muted = true;
-      video.currentTime = 0;
+      try {
+        video.currentTime = 0;
+      } catch (e) {}
     }
   });
 }
@@ -238,6 +558,37 @@ function updateActiveVideo(index) {
 function detectActiveSlide() {
   const index = Math.round(feed.scrollTop / window.innerHeight);
   updateActiveVideo(index);
+}
+
+function showToast(message) {
+  placeholderToast.textContent = message;
+  placeholderToast.classList.add("show");
+
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => {
+    placeholderToast.classList.remove("show");
+  }, 1400);
+}
+
+function openRestaurantScreen(data) {
+  overlayOpen = true;
+  videos.forEach((video) => video.pause());
+
+  screenLogo.src = data.logo;
+  screenLogo.alt = data.name;
+  screenName.textContent = data.name;
+  screenDesc.textContent = data.description;
+  screenOrderBtn.href = data.order;
+
+  restaurantScreen.classList.add("open");
+  restaurantScreen.setAttribute("aria-hidden", "false");
+}
+
+function closeRestaurantOverlay() {
+  overlayOpen = false;
+  restaurantScreen.classList.remove("open");
+  restaurantScreen.setAttribute("aria-hidden", "true");
+  updateActiveVideo(activeIndex);
 }
 
 tapSoundBtn.addEventListener("click", () => {
@@ -249,7 +600,58 @@ tapSoundBtn.addEventListener("click", () => {
 feed.addEventListener("scroll", detectActiveSlide);
 
 window.addEventListener("load", () => {
+  prepareVideos();
   updateActiveVideo(0);
+
+  setTimeout(() => {
+    updateActiveVideo(0);
+  }, 250);
+
+  setTimeout(() => {
+    updateActiveVideo(activeIndex);
+  }, 900);
+});
+
+window.addEventListener("resize", detectActiveSlide);
+
+document.querySelectorAll(".logo-action").forEach((button) => {
+  button.addEventListener("click", () => {
+    openRestaurantScreen({
+      name: button.dataset.name,
+      logo: button.dataset.logo,
+      description: button.dataset.description,
+      order: button.dataset.order
+    });
+  });
+});
+
+document.querySelectorAll(".heart-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    button.classList.toggle("active");
+    const icon = button.querySelector(".action-icon");
+    icon.textContent = button.classList.contains("active") ? "❤️" : "🤍";
+  });
+});
+
+document.querySelectorAll(".placeholder-btn").forEach((button) => {
+  button.addEventListener("click", () => {
+    const label = button.getAttribute("aria-label") || "Feature";
+    showToast(label + " coming soon");
+  });
+});
+
+closeRestaurantScreen.addEventListener("click", closeRestaurantOverlay);
+
+restaurantScreen.addEventListener("click", (e) => {
+  if (e.target === restaurantScreen) {
+    closeRestaurantOverlay();
+  }
+});
+
+document.addEventListener("keydown", (e) => {
+  if (e.key === "Escape" && restaurantScreen.classList.contains("open")) {
+    closeRestaurantOverlay();
+  }
 });
 </script>
 
