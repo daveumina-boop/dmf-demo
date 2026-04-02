@@ -314,15 +314,6 @@ video {
   pointer-events: auto;
 }
 
-.restaurant-screen::before,
-.saved-screen::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  backdrop-filter: blur(0px);
-  pointer-events: none;
-}
-
 .restaurant-inner,
 .saved-inner {
   position: relative;
@@ -447,144 +438,64 @@ video {
   text-transform: uppercase;
 }
 
-.featured-list {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 12px;
-  margin-bottom: 16px;
-}
-
-.food-card-large {
-  min-height: 145px;
-  border-radius: 22px;
-  position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(255,75,62,0.17), rgba(255,255,255,0.04)),
-    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.food-card-large::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle at top left, rgba(255,255,255,0.06), transparent 32%),
-    linear-gradient(to top, rgba(0,0,0,0.54), transparent 60%);
-}
-
-.card-content {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: 14px;
-  z-index: 2;
-}
-
-.card-badge {
-  display: inline-block;
-  margin-bottom: 8px;
-  padding: 6px 10px;
-  border-radius: 999px;
-  background: rgba(255,75,62,0.2);
-  border: 1px solid rgba(255,75,62,0.3);
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: #ffd6d2;
-}
-
-.card-title {
-  font-size: 22px;
-  font-weight: 800;
-  margin: 0 0 4px 0;
-}
-
-.card-sub {
-  margin: 0;
-  font-size: 14px;
-  opacity: 0.92;
-  line-height: 1.35;
-}
-
-.two-col {
+.image-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
   margin-bottom: 16px;
 }
 
-.mini-card {
-  min-height: 126px;
-  border-radius: 18px;
+.image-card {
   position: relative;
-  overflow: hidden;
-  background:
-    linear-gradient(135deg, rgba(255,75,62,0.12), rgba(255,255,255,0.03)),
-    linear-gradient(180deg, rgba(255,255,255,0.04), rgba(255,255,255,0.02));
-  border: 1px solid rgba(255,255,255,0.08);
-}
-
-.mini-card::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(0,0,0,0.5), transparent 62%);
-}
-
-.mini-card .card-content {
-  left: 14px;
-  right: 14px;
-  bottom: 12px;
-}
-
-.mini-card .card-title {
-  font-size: 18px;
-  margin-bottom: 3px;
-}
-
-.mini-card .card-sub {
-  font-size: 13px;
-}
-
-.gallery-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 16px;
-}
-
-.gallery-tile {
   aspect-ratio: 1 / 1;
-  border-radius: 16px;
-  position: relative;
   overflow: hidden;
+  border-radius: 20px;
   border: 1px solid rgba(255,255,255,0.08);
-  background:
-    linear-gradient(135deg, rgba(255,75,62,0.16), rgba(255,255,255,0.04)),
-    linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));
+  background: rgba(255,255,255,0.03);
+  box-shadow: 0 8px 24px rgba(0,0,0,0.22);
 }
 
-.gallery-tile::before {
+.image-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.image-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background:
-    radial-gradient(circle at 25% 20%, rgba(255,255,255,0.08), transparent 35%),
-    linear-gradient(to top, rgba(0,0,0,0.42), transparent 60%);
+  background: linear-gradient(to top, rgba(0,0,0,0.68), rgba(0,0,0,0.14), transparent 55%);
 }
 
-.gallery-label {
+.image-card-label {
   position: absolute;
   left: 12px;
-  bottom: 10px;
-  right: 10px;
+  right: 12px;
+  bottom: 12px;
   z-index: 2;
-  font-size: 12px;
+}
+
+.image-card-badge {
+  display: inline-block;
+  margin-bottom: 6px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  background: rgba(255,75,62,0.2);
+  border: 1px solid rgba(255,75,62,0.3);
+  font-size: 10px;
   font-weight: 800;
-  line-height: 1.2;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #ffd6d2;
+}
+
+.image-card-title {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 800;
+  line-height: 1.15;
 }
 
 .about-card,
@@ -719,7 +630,7 @@ video {
 
     <video
       id="video1"
-      src="bbq.mp4?v=52"
+      src="bbq.mp4?v=53"
       autoplay
       muted
       playsinline
@@ -736,29 +647,28 @@ video {
         type="button"
         data-id="bbq"
         data-name="Real Smoq'ed BBQ"
-        data-logo="bbq-logo.png?v=52"
+        data-logo="bbq-logo.png?v=53"
         data-description="Slow-smoked BBQ favorites with ribs, brisket, and bold comfort-food flavor."
         data-order="https://realsmoqedbbq.com/menu"
-        data-featured-badge="🔥 Most Ordered"
-        data-featured-title="Burnt End Brisket Plate"
-        data-featured-sub="Tender brisket, smokehouse sides, and deep pit flavor that hits right away."
-        data-pick1-title="Half Rack Ribs"
-        data-pick1-sub="Fan Favorite • $18"
-        data-pick2-title="Loaded BBQ Fries"
-        data-pick2-sub="Trending Today • $12"
-        data-gallery1="Smoked Meats"
-        data-gallery2="Loaded Sides"
-        data-gallery3="Sauce Finish"
-        data-about="Real Smoq'ed BBQ brings rich smoke, bold bark, and comfort-food energy into one craveable experience. Inside DMF, the goal is simple: discovery first, direct ordering second, and the restaurant stays part of the relationship."
         data-rating="⭐ 4.8 Rating"
         data-orders="200+ Orders"
         data-value="No commissions. Restaurants keep their customers."
+        data-about="Real Smoq'ed BBQ brings rich smoke, bold bark, and comfort-food energy into one craveable experience. Inside DMF, discovery comes first, direct ordering comes second, and the restaurant stays part of the customer relationship."
         data-feedkicker="Trending Today"
         data-feedmeta1="⭐ 4.8"
         data-feedmeta2="200+ Orders"
         data-feedmeta3="🔥 Most Ordered"
+        data-img1="bbq-1.jpg?v=1"
+        data-img1title="Burnt End Brisket Plate"
+        data-img1badge="🔥 Most Ordered"
+        data-img2="bbq-2.jpg?v=1"
+        data-img2title="Half Rack Ribs"
+        data-img2badge="⭐ Fan Favorite"
+        data-img3="bbq-3.jpg?v=1"
+        data-img3title="Loaded Fries & Sides"
+        data-img3badge="Trending"
       >
-        <img src="bbq-logo.png?v=52" class="logo-btn" alt="Real Smoq'ed BBQ">
+        <img src="bbq-logo.png?v=53" class="logo-btn" alt="Real Smoq'ed BBQ">
       </button>
 
       <div class="action-wrap">
@@ -813,7 +723,7 @@ video {
 
     <video
       id="video2"
-      src="pizzazz.mp4?v=52"
+      src="pizzazz.mp4?v=53"
       muted
       playsinline
       webkit-playsinline
@@ -827,29 +737,28 @@ video {
         type="button"
         data-id="pizzazz"
         data-name="Pizzazz on the Circle"
-        data-logo="pizzazz-logo.png?v=52"
+        data-logo="pizzazz-logo.png?v=53"
         data-description="Classic pizza, pasta, and Italian favorites served with neighborhood energy."
         data-order="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
-        data-featured-badge="⭐ Fan Favorite"
-        data-featured-title="Grandma's Vodka Rigatoni"
-        data-featured-sub="Comforting pasta, rich sauce, and neighborhood Italian energy in every bite."
-        data-pick1-title="House Pepperoni Pizza"
-        data-pick1-sub="Hot & Fresh • $19"
-        data-pick2-title="Garlic Parmesan Wings"
-        data-pick2-sub="Trending Tonight • $14"
-        data-gallery1="Dough Prep"
-        data-gallery2="Cheese Pull"
-        data-gallery3="Kitchen Energy"
-        data-about="Pizzazz on the Circle combines classic Italian staples with an easy neighborhood feel. DMF makes the discovery feel social and immediate, then sends the customer straight to order without separating the restaurant from its own customer."
         data-rating="⭐ 4.7 Rating"
         data-orders="150+ Orders"
         data-value="Discover food on video. Order direct."
+        data-about="Pizzazz on the Circle combines classic Italian staples with an easy neighborhood feel. DMF makes discovery social and immediate, then sends the customer straight to order without separating the restaurant from its own customer."
         data-feedkicker="Fan Favorite"
         data-feedmeta1="⭐ 4.7"
         data-feedmeta2="150+ Orders"
         data-feedmeta3="⭐ Fan Favorite"
+        data-img1="pizzazz-1.jpg?v=1"
+        data-img1title="House Pepperoni Pizza"
+        data-img1badge="⭐ Fan Favorite"
+        data-img2="pizzazz-2.jpg?v=1"
+        data-img2title="Grandma's Vodka Rigatoni"
+        data-img2badge="Trending"
+        data-img3="pizzazz-3.jpg?v=1"
+        data-img3title="Garlic Parm Wings"
+        data-img3badge="🔥 Popular"
       >
-        <img src="pizzazz-logo.png?v=52" class="logo-btn" alt="Pizzazz on the Circle">
+        <img src="pizzazz-logo.png?v=53" class="logo-btn" alt="Pizzazz on the Circle">
       </button>
 
       <div class="action-wrap">
@@ -915,43 +824,30 @@ video {
 
       <a id="screenOrderBtn" href="#" target="_blank" class="screen-order-btn">ORDER NOW</a>
 
-      <div class="section-title">Featured</div>
-      <div class="featured-list">
-        <div class="food-card-large">
-          <div class="card-content">
-            <div id="featuredBadge" class="card-badge"></div>
-            <h3 id="featuredTitle" class="card-title"></h3>
-            <p id="featuredSub" class="card-sub"></p>
+      <div class="section-title">Featured Menu</div>
+      <div class="image-grid">
+        <div class="image-card">
+          <img id="gridImg1" src="" alt="">
+          <div class="image-card-label">
+            <div id="gridBadge1" class="image-card-badge"></div>
+            <h3 id="gridTitle1" class="image-card-title"></h3>
           </div>
         </div>
-      </div>
 
-      <div class="section-title">Popular Picks</div>
-      <div class="two-col">
-        <div class="mini-card">
-          <div class="card-content">
-            <h3 id="pick1Title" class="card-title"></h3>
-            <p id="pick1Sub" class="card-sub"></p>
+        <div class="image-card">
+          <img id="gridImg2" src="" alt="">
+          <div class="image-card-label">
+            <div id="gridBadge2" class="image-card-badge"></div>
+            <h3 id="gridTitle2" class="image-card-title"></h3>
           </div>
         </div>
-        <div class="mini-card">
-          <div class="card-content">
-            <h3 id="pick2Title" class="card-title"></h3>
-            <p id="pick2Sub" class="card-sub"></p>
-          </div>
-        </div>
-      </div>
 
-      <div class="section-title">Gallery</div>
-      <div class="gallery-grid">
-        <div class="gallery-tile">
-          <div id="gallery1" class="gallery-label"></div>
-        </div>
-        <div class="gallery-tile">
-          <div id="gallery2" class="gallery-label"></div>
-        </div>
-        <div class="gallery-tile">
-          <div id="gallery3" class="gallery-label"></div>
+        <div class="image-card">
+          <img id="gridImg3" src="" alt="">
+          <div class="image-card-label">
+            <div id="gridBadge3" class="image-card-badge"></div>
+            <h3 id="gridTitle3" class="image-card-title"></h3>
+          </div>
         </div>
       </div>
 
@@ -976,7 +872,7 @@ video {
     </div>
 
     <h1 class="saved-title">Saved Restaurants</h1>
-    <p class="saved-subtitle">Swipe-style discovery meets direct ordering. Save places you want to come back to and open their restaurant page anytime.</p>
+    <p class="saved-subtitle">Save restaurants you want to come back to and open their pages anytime.</p>
 
     <div id="savedList" class="saved-list"></div>
 
@@ -1006,16 +902,15 @@ const screenDesc = document.getElementById("screenDesc");
 const screenOrderBtn = document.getElementById("screenOrderBtn");
 const profileRating = document.getElementById("profileRating");
 const profileOrders = document.getElementById("profileOrders");
-const featuredBadge = document.getElementById("featuredBadge");
-const featuredTitle = document.getElementById("featuredTitle");
-const featuredSub = document.getElementById("featuredSub");
-const pick1Title = document.getElementById("pick1Title");
-const pick1Sub = document.getElementById("pick1Sub");
-const pick2Title = document.getElementById("pick2Title");
-const pick2Sub = document.getElementById("pick2Sub");
-const gallery1 = document.getElementById("gallery1");
-const gallery2 = document.getElementById("gallery2");
-const gallery3 = document.getElementById("gallery3");
+const gridImg1 = document.getElementById("gridImg1");
+const gridImg2 = document.getElementById("gridImg2");
+const gridImg3 = document.getElementById("gridImg3");
+const gridTitle1 = document.getElementById("gridTitle1");
+const gridTitle2 = document.getElementById("gridTitle2");
+const gridTitle3 = document.getElementById("gridTitle3");
+const gridBadge1 = document.getElementById("gridBadge1");
+const gridBadge2 = document.getElementById("gridBadge2");
+const gridBadge3 = document.getElementById("gridBadge3");
 const aboutText = document.getElementById("aboutText");
 const valueText = document.getElementById("valueText");
 const placeholderToast = document.getElementById("placeholderToast");
@@ -1106,18 +1001,23 @@ function openRestaurantScreenByData(data) {
   screenOrderBtn.href = data.order;
   profileRating.textContent = data.rating;
   profileOrders.textContent = data.orders;
-  featuredBadge.textContent = data.featuredBadge;
-  featuredTitle.textContent = data.featuredTitle;
-  featuredSub.textContent = data.featuredSub;
-  pick1Title.textContent = data.pick1Title;
-  pick1Sub.textContent = data.pick1Sub;
-  pick2Title.textContent = data.pick2Title;
-  pick2Sub.textContent = data.pick2Sub;
-  gallery1.textContent = data.gallery1;
-  gallery2.textContent = data.gallery2;
-  gallery3.textContent = data.gallery3;
   aboutText.textContent = data.about;
   valueText.textContent = data.value;
+
+  gridImg1.src = data.img1;
+  gridImg1.alt = data.img1title;
+  gridTitle1.textContent = data.img1title;
+  gridBadge1.textContent = data.img1badge;
+
+  gridImg2.src = data.img2;
+  gridImg2.alt = data.img2title;
+  gridTitle2.textContent = data.img2title;
+  gridBadge2.textContent = data.img2badge;
+
+  gridImg3.src = data.img3;
+  gridImg3.alt = data.img3title;
+  gridTitle3.textContent = data.img3title;
+  gridBadge3.textContent = data.img3badge;
 
   savedScreen.classList.remove("open");
   savedScreen.setAttribute("aria-hidden", "true");
