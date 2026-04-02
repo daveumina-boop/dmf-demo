@@ -1,184 +1,141 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-<title>DMF Feed</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 
 <style>
-  * { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: black;
+  overflow: hidden;
+  font-family: Arial;
+}
 
-  html, body {
-    margin: 0;
-    padding: 0;
-    background: #000;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-    overflow: hidden;
-  }
+/* FEED */
+.feed {
+  height: 100vh;
+  overflow-y: scroll;
+  scroll-snap-type: y mandatory;
+}
 
-  /* FEED */
-  .feed {
-    height: 100vh;
-    overflow-y: scroll;
-    scroll-snap-type: y mandatory;
-    -webkit-overflow-scrolling: touch;
-  }
+.slide {
+  position: relative;
+  height: 100vh;
+  scroll-snap-align: start;
+}
 
-  .slide {
-    position: relative;
-    height: 100vh;
-    width: 100%;
-    scroll-snap-align: start;
-    background: #000;
-  }
+/* VIDEO */
+video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
 
-  /* VIDEO (don’t touch this — keeps it perfect) */
-  video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
-  }
+/* FADE */
+.fade {
+  position: absolute;
+  bottom: 0;
+  height: 45%;
+  width: 100%;
+  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+}
 
-  /* TOP BAR */
-  .topbar {
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    padding: 14px 16px;
-    z-index: 20;
-    display: flex;
-    justify-content: space-between;
-    color: #fff;
-    font-weight: 800;
-    background: linear-gradient(to bottom, rgba(0,0,0,0.6), transparent);
-    pointer-events: none;
-  }
+/* TEXT */
+.info {
+  position: absolute;
+  bottom: 140px;
+  left: 16px;
+  color: white;
+}
 
-  .pill {
-    pointer-events: auto;
-    background: rgba(0,0,0,0.5);
-    padding: 8px 12px;
-    border-radius: 999px;
-    border: 1px solid rgba(255,255,255,0.1);
-    font-size: 12px;
-  }
+.info h2 {
+  margin: 0;
+  font-size: 22px;
+}
 
-  /* FADE */
-  .fade {
-    position: absolute;
-    bottom: 0;
-    height: 45%;
-    width: 100%;
-    background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
-    pointer-events: none;
-  }
+.info p {
+  margin-top: 5px;
+  font-size: 14px;
+}
 
-  /* RIGHT ACTIONS */
-  .actions {
-    position: absolute;
-    right: 12px;
-    bottom: 150px;
-    display: flex;
-    flex-direction: column;
-    gap: 18px;
-    z-index: 10;
-    color: white;
-    text-align: center;
-    font-size: 12px;
-  }
+/* 🔴 FIXED BIGGER ICONS */
+.actions {
+  position: absolute;
+  right: 12px;
+  bottom: 170px;
+  color: white;
+  text-align: center;
+}
 
-  .btn {
-    width: 52px;
-    height: 52px;
-    border-radius: 50%;
-    background: rgba(0,0,0,0.5);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 22px;
-  }
+.actions div {
+  margin: 18px 0;
+  font-size: 26px; /* BIGGER */
+}
 
-  /* TEXT INFO */
-  .info {
-    position: absolute;
-    bottom: 140px;
-    left: 16px;
-    right: 90px;
-    color: white;
-    z-index: 10;
-  }
+/* 🔴 ORDER BUTTON (FIXED POSITION) */
+.order-btn {
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  bottom: calc(70px + env(safe-area-inset-bottom)); /* ABOVE NAV */
+  background: red;
+  color: white;
+  padding: 18px;
+  text-align: center;
+  font-weight: bold;
+  border-radius: 12px;
+  z-index: 10;
+}
 
-  .info h2 {
-    margin: 0 0 6px;
-    font-size: 22px;
-  }
+/* NAV */
+.nav {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  background: #5a0a00;
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+  color: white;
+}
 
-  .info p {
-    margin: 0;
-    font-size: 14px;
-    opacity: 0.9;
-  }
+.nav div {
+  font-size: 12px;
+  text-align: center;
+}
 
-  /* 🔴 ORDER BUTTON (THIS IS FIXED CLEAN) */
-  .order-btn {
-    position: absolute;
-    left: 16px;
-    right: 16px;
-    bottom: calc(16px + env(safe-area-inset-bottom));
-    z-index: 10;
-
-    background: linear-gradient(90deg, #ff3b30, #d10000);
-    color: #fff;
-    padding: 18px;
-    border-radius: 16px;
-    text-align: center;
-    font-weight: 900;
-    font-size: 18px;
-    text-decoration: none;
-  }
-
-  /* SOUND HINT */
-  .sound {
-    position: absolute;
-    top: 70px;
-    left: 16px;
-    z-index: 10;
-    font-size: 12px;
-    background: rgba(0,0,0,0.4);
-    padding: 6px 10px;
-    border-radius: 999px;
-  }
-
+/* SOUND */
+.sound {
+  position: absolute;
+  top: 70px;
+  left: 16px;
+  color: white;
+  font-size: 12px;
+}
 </style>
 </head>
 
 <body>
 
-<div class="topbar">
-  <div class="pill">DMF</div>
-  <div class="pill">Discover → Order Direct</div>
-</div>
-
 <div class="feed">
 
   <!-- BBQ -->
   <div class="slide">
-    <video src="bbq.mp4" autoplay muted loop playsinline onclick="this.muted=false"></video>
+    <video src="bbq.mp4" autoplay muted loop playsinline onclick="this.muted=false; this.play()"></video>
 
     <div class="fade"></div>
     <div class="sound">🔊 tap for sound</div>
 
     <div class="actions">
-      <div>❤️<br>1.2K</div>
-      <div>💬<br>184</div>
-      <div>🔖<br>Save</div>
+      ❤️<br>
+      💬<br>
+      🔗<br>
+      🔖
     </div>
 
     <div class="info">
-      <h2>Real Smoq'ed BBQ</h2>
-      <p>Brisket • Ribs • Real smoke</p>
+      <h2>Real Smoqed BBQ</h2>
+      <p>🔥 Ribs • Brisket • BBQ</p>
     </div>
 
     <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
@@ -188,20 +145,21 @@
 
   <!-- PIZZAZZ -->
   <div class="slide">
-    <video src="pizzazz.mp4" autoplay muted loop playsinline onclick="this.muted=false"></video>
+    <video src="pizzazz.mp4" autoplay muted loop playsinline onclick="this.muted=false; this.play()"></video>
 
     <div class="fade"></div>
     <div class="sound">🔊 tap for sound</div>
 
     <div class="actions">
-      <div>❤️<br>986</div>
-      <div>💬<br>127</div>
-      <div>🔖<br>Save</div>
+      ❤️<br>
+      💬<br>
+      🔗<br>
+      🔖
     </div>
 
     <div class="info">
       <h2>Pizzazz on the Circle</h2>
-      <p>Pizza • Pasta • Italian</p>
+      <p>🍕 Pizza • Pasta • Italian</p>
     </div>
 
     <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
@@ -209,6 +167,14 @@
     </a>
   </div>
 
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <div>🏠 Home</div>
+  <div>⭐ Favorites</div>
+  <div>📦 Orders</div>
+  <div>👤 Profile</div>
 </div>
 
 </body>
