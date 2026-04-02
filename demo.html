@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>DMF Demo V3.1</title>
+<title>DMF Demo V3.2</title>
 <style>
 html, body {
   margin: 0;
@@ -444,12 +444,11 @@ video {
   cursor: pointer;
 }
 
-.video-tile img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center center;
-  display: block;
+.video-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center center;
   transform: scale(1.03);
 }
 
@@ -458,7 +457,7 @@ video {
   position: absolute;
   inset: 0;
   background:
-    linear-gradient(to top, rgba(0,0,0,0.88), rgba(0,0,0,0.18) 44%, rgba(0,0,0,0.06) 72%, transparent 100%);
+    linear-gradient(to top, rgba(0,0,0,0.9), rgba(0,0,0,0.18) 44%, rgba(0,0,0,0.06) 72%, transparent 100%);
 }
 
 .play-badge {
@@ -668,7 +667,7 @@ video {
 
     <video
       id="video1"
-      src="bbq.mp4?v=55"
+      src="bbq.mp4?v=56"
       autoplay
       muted
       playsinline
@@ -685,17 +684,13 @@ video {
         type="button"
         data-id="bbq"
         data-name="Real Smoq'ed BBQ"
-        data-logo="bbq-logo.png?v=55"
+        data-logo="bbq-logo.png?v=56"
         data-description="Slow-smoked BBQ favorites with ribs, brisket, and bold comfort-food flavor."
         data-order="https://realsmoqedbbq.com/menu"
         data-rating="⭐ 4.8 Rating"
         data-orders="200+ Orders"
         data-value="No commissions. Restaurants keep their customers."
         data-about="Real Smoq'ed BBQ brings rich smoke, bold bark, and comfort-food energy into one craveable experience. Inside DMF, discovery comes first, direct ordering comes second, and the restaurant stays part of the customer relationship."
-        data-feedkicker="Trending Today"
-        data-feedmeta1="⭐ 4.8"
-        data-feedmeta2="200+ Orders"
-        data-feedmeta3="🔥 Most Ordered"
         data-img1="bbq-1.jpg?v=2"
         data-img2="bbq-2.jpg?v=2"
         data-img3="bbq-3.jpg?v=2"
@@ -715,7 +710,7 @@ video {
         data-dur5="0:07"
         data-dur6="0:10"
       >
-        <img src="bbq-logo.png?v=55" class="logo-btn" alt="Real Smoq'ed BBQ">
+        <img src="bbq-logo.png?v=56" class="logo-btn" alt="Real Smoq'ed BBQ">
       </button>
 
       <div class="action-wrap">
@@ -753,9 +748,7 @@ video {
       </div>
     </div>
 
-    <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">
-      ORDER NOW
-    </a>
+    <a href="https://realsmoqedbbq.com/menu" target="_blank" class="order-btn">ORDER NOW</a>
   </div>
 
   <!-- PIZZAZZ -->
@@ -770,7 +763,7 @@ video {
 
     <video
       id="video2"
-      src="pizzazz.mp4?v=55"
+      src="pizzazz.mp4?v=56"
       muted
       playsinline
       webkit-playsinline
@@ -784,17 +777,13 @@ video {
         type="button"
         data-id="pizzazz"
         data-name="Pizzazz on the Circle"
-        data-logo="pizzazz-logo.png?v=55"
+        data-logo="pizzazz-logo.png?v=56"
         data-description="Classic pizza, pasta, and Italian favorites served with neighborhood energy."
         data-order="https://order.toasttab.com/online/pizzazz-on-the-circle#!/"
         data-rating="⭐ 4.7 Rating"
         data-orders="150+ Orders"
         data-value="Discover food on video. Order direct."
         data-about="Pizzazz on the Circle combines classic Italian staples with an easy neighborhood feel. DMF makes discovery social and immediate, then sends the customer straight to order without separating the restaurant from its own customer."
-        data-feedkicker="Fan Favorite"
-        data-feedmeta1="⭐ 4.7"
-        data-feedmeta2="150+ Orders"
-        data-feedmeta3="⭐ Fan Favorite"
         data-img1="pizzazz-1.jpg?v=2"
         data-img2="pizzazz-2.jpg?v=2"
         data-img3="pizzazz-3.jpg?v=2"
@@ -814,7 +803,7 @@ video {
         data-dur5="0:11"
         data-dur6="0:08"
       >
-        <img src="pizzazz-logo.png?v=55" class="logo-btn" alt="Pizzazz on the Circle">
+        <img src="pizzazz-logo.png?v=56" class="logo-btn" alt="Pizzazz on the Circle">
       </button>
 
       <div class="action-wrap">
@@ -852,9 +841,7 @@ video {
       </div>
     </div>
 
-    <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">
-      ORDER NOW
-    </a>
+    <a href="https://order.toasttab.com/online/pizzazz-on-the-circle#!/" target="_blank" class="order-btn">ORDER NOW</a>
   </div>
 
 </div>
@@ -883,37 +870,37 @@ video {
       <div class="section-title">Restaurant Feed</div>
       <div class="video-grid">
         <div class="video-tile" data-index="0">
-          <img id="tileImg1" src="" alt="">
+          <div class="video-bg" id="tileBg1"></div>
           <div class="video-duration" id="tileDur1"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap1"></p></div>
         </div>
         <div class="video-tile" data-index="1">
-          <img id="tileImg2" src="" alt="">
+          <div class="video-bg" id="tileBg2"></div>
           <div class="video-duration" id="tileDur2"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap2"></p></div>
         </div>
         <div class="video-tile" data-index="2">
-          <img id="tileImg3" src="" alt="">
+          <div class="video-bg" id="tileBg3"></div>
           <div class="video-duration" id="tileDur3"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap3"></p></div>
         </div>
         <div class="video-tile" data-index="3">
-          <img id="tileImg4" src="" alt="">
+          <div class="video-bg" id="tileBg4"></div>
           <div class="video-duration" id="tileDur4"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap4"></p></div>
         </div>
         <div class="video-tile" data-index="4">
-          <img id="tileImg5" src="" alt="">
+          <div class="video-bg" id="tileBg5"></div>
           <div class="video-duration" id="tileDur5"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap5"></p></div>
         </div>
         <div class="video-tile" data-index="5">
-          <img id="tileImg6" src="" alt="">
+          <div class="video-bg" id="tileBg6"></div>
           <div class="video-duration" id="tileDur6"></div>
           <div class="play-badge"><div class="play-circle"><div class="play-triangle"></div></div></div>
           <div class="video-caption"><p id="tileCap6"></p></div>
@@ -960,13 +947,13 @@ const aboutText = document.getElementById("aboutText");
 const valueText = document.getElementById("valueText");
 const placeholderToast = document.getElementById("placeholderToast");
 
-const tileImgs = [
-  document.getElementById("tileImg1"),
-  document.getElementById("tileImg2"),
-  document.getElementById("tileImg3"),
-  document.getElementById("tileImg4"),
-  document.getElementById("tileImg5"),
-  document.getElementById("tileImg6")
+const tileBgs = [
+  document.getElementById("tileBg1"),
+  document.getElementById("tileBg2"),
+  document.getElementById("tileBg3"),
+  document.getElementById("tileBg4"),
+  document.getElementById("tileBg5"),
+  document.getElementById("tileBg6")
 ];
 
 const tileCaps = [
@@ -1119,8 +1106,7 @@ function openRestaurantScreenByData(data) {
     const img = data[`img${i + 1}`] || "";
     const cap = data[`cap${i + 1}`] || "";
     const dur = data[`dur${i + 1}`] || "";
-    tileImgs[i].src = img;
-    tileImgs[i].alt = "";
+    tileBgs[i].style.backgroundImage = img ? `url("${img}")` : "none";
     tileCaps[i].textContent = cap;
     tileDurs[i].textContent = dur;
   }
