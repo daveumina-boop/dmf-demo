@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DMF Demo</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: black;
+  color: white;
+}
+
+.screen {
+  display: none;
+  height: 100vh;
+}
+
+.active {
+  display: block;
+}
+
+.video {
+  height: 100vh;
+  background-size: cover;
+  position: relative;
+}
+
+.overlay {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+
+.button {
+  background: red;
+  padding: 12px 20px;
+  margin-top: 10px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.menu {
+  padding: 20px;
+  background: white;
+  color: black;
+}
+
+.menu-item {
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
+}
+
+.checkout {
+  padding: 20px;
+  background: white;
+  color: black;
+}
+</style>
+</head>
+
+<body>
+
+<!-- FEED -->
+<div id="feed" class="screen active">
+  <div class="video" style="background-image:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092');">
+    <div class="overlay">
+      <h2>🔥 Real Smoqed BBQ</h2>
+      <p>Brisket & Ribs</p>
+      <div class="button" onclick="goToMenu()">ORDER NOW</div>
+    </div>
+  </div>
+</div>
+
+<!-- MENU -->
+<div id="menu" class="screen menu">
+  <h2>Real Smoqed BBQ Menu</h2>
+
+  <div class="menu-item" onclick="addItem()">Brisket Plate - $18</div>
+  <div class="menu-item" onclick="addItem()">Rib Dinner - $22</div>
+  <div class="menu-item" onclick="addItem()">Mac & Cheese - $6</div>
+
+  <br>
+  <div class="button" onclick="goToCheckout()">Checkout</div>
+</div>
+
+<!-- CHECKOUT -->
+<div id="checkout" class="screen checkout">
+  <h2>Checkout</h2>
+  <p>Items: <span id="items">0</span></p>
+  <p>Total: $<span id="total">0</span></p>
+
+  <div class="button" onclick="placeOrder()">Place Order</div>
+</div>
+
+<!-- CONFIRMATION -->
+<div id="confirmation" class="screen checkout">
+  <h2>✅ Order Confirmed</h2>
+  <p>Your order was sent to the restaurant.</p>
+  <p>Driver is being assigned.</p>
+</div>
+
+<script>
+let itemCount = 0;
+let total = 0;
+
+function goToMenu() {
+  switchScreen('menu');
+}
+
+function goToCheckout() {
+  document.getElementById('items').innerText = itemCount;
+  document.getElementById('total').innerText = total;
+  switchScreen('checkout');
+}
+
+function addItem() {
+  itemCount++;
+  total += 10;
+}
+
+function placeOrder() {
+  switchScreen('confirmation');
+}
+
+function switchScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+}
+</script>
+
+</body>
+</html>
